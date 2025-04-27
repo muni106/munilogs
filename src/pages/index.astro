@@ -1,5 +1,8 @@
 ---
-
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Hamburger from '../components/Hamburger.astro';
 ---
 
 <html lang="en">
@@ -11,9 +14,8 @@
 		<title>home</title>
 	</head>
 	<body>
-		<h1>My BlogAstro WebSite</h1>
-		<a href="/">Home</a>
-        <a href="/blog/">About</a>
-        <a href="/about/">Blog</a>
+		<Header title="Home"/>
+		<Footer />
+
 	</body>
 </html>
