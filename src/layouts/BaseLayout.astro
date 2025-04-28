@@ -1,8 +1,8 @@
 ---
 import '../styles/global.css';
+import '../styles/cyberpunk.css';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import Hamburger from '../components/Hamburger.astro';
 const {pageTitle} = Astro.props
 ---
 
@@ -16,7 +16,6 @@ const {pageTitle} = Astro.props
 	</head>
 	<body>
 		<Header title={pageTitle}/>
-        <Hamburger />
         <slot />
 		<Footer />
 

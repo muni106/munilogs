@@ -1,6 +1,9 @@
+:root {
+  --font-sans: "Chakra Petch", sans-serif;
+  --font-display: "Orbitron", sans-serif;
+}
 html {
-    background-color: #f1f5f9;
-    font-family: sans-serif;
+    font-family: var(--font-sans);
   }
   
   body {
@@ -14,11 +17,8 @@ html {
   * {
     box-sizing: border-box;
   }
-  
-  h1 {
-    margin: 1rem 0;
-    font-size: 2.5rem;
-  }
+
+  h1,h2,h3 { font-family: var(--font-display); letter-spacing: .03em; }
 
   /* nav styles */
   .hamburger {
@@ -55,7 +55,7 @@ html {
   
   .nav-links a:hover,
   .nav-links a:focus {
-    background-color: #ff9776;
+    background-color: yeel;
   }
   
   .expanded {
@@ -81,3 +81,19 @@ html {
       }
   
   }
+
+  body {
+    background-color: #0c0c0f;
+    color: #e5e5e5;
+    background-image: url("/imgs/noise.png"), linear-gradient(#111, #0c0c0f);
+    background-blend-mode: overlay;
+  }
+  
+  /* Universal link glow */
+  a:not(.btn) {
+    color: #0ff;
+    text-shadow: 0 0 6px #0ff;
+    transition: text-shadow .2s;
+  }
+  a:hover { text-shadow: 0 0 12px #0ff; }
+  
