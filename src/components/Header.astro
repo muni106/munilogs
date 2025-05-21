@@ -1,12 +1,14 @@
 ---
 const {title} = Astro.props;
 import Navigation from "./Navigation.astro";
-import Hamburger from "./Hamburger.astro";
-import GlitchTitle from "./GlitchTitle.astro";
+import NavBar from "./NavBar.astro";
 ---
+
+<NavBar />
+<Navigation />
+<h1>{title}</>
+
 <script>
     import "../scripts/menu"
+    import "../scripts/searchToggle"
 </script>
-<Hamburger />
-<Navigation />
-<GlitchTitle title={title}/>
