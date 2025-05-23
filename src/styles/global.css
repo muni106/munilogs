@@ -1,3 +1,5 @@
+@import "bulma/css/bulma.min.css";
+
 :root {
   --font-sans: "Chakra Petch", sans-serif;
   --font-display: "Orbitron", sans-serif;
