@@ -58,6 +58,10 @@ html {
     padding: 0 0.5rem;
     border-radius: 0 4px 4px 0;
   }
+
+  #postCard {
+    display: flex;
+  }
   
   
   @media (max-width: 480px) {
