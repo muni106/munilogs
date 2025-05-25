@@ -2,10 +2,86 @@
 import Social from "./Social.astro"
 
 ---
+<!-- <footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>.
+      The source code is licensed
+      <a href="https://opensource.org/license/mit">MIT</a>. The
+      website content is licensed
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0//"
+        >CC BY NC SA 4.0</a
+      >.
+    </p>
+  </div>
+</footer> -->
 
-<footer>
-learn more about me:
-  <Social platform="twitter" username="mnrsmt" />
-  <Social platform="github" username="muni106" />
-  <Social platform="youtube" username="mounir-samite" />
+<footer class="footer custom-footer">
+  <div class="footer-content">
+
+    <!-- Divider -->
+    <hr class="footer-hr">
+
+    <div class="container">
+      <!-- Top Section -->
+      <div class="columns is-vcentered">
+        <div class="column is-vcentered is-6">
+          <div class="footer-brand">
+            <p class="subtitle is-6 has-text-grey-light">
+              Building, learning, and sharing.
+            </p>
+          </div>
+        </div>
+      </div>
+            
+      <!-- Bottom Section -->
+      <div class="columns">
+        <div class="column is-4">
+          <h4 class="title is-6 has-text-white mb-3">Quick Links</h4>
+          <div class="footer-links">
+            <a href="/" class="footer-link">🏠 Home</a>
+            <a href="/blog" class="footer-link">📝 Blog</a>
+            <a href="/about" class="footer-link">👋 About</a>
+          </div>
+        </div>
+        <div class="column is-4">
+          <h4 class="title is-6 has-text-white mb-3">Categories</h4>
+          <div class="footer-links">
+            <a href="/tags/javascript" class="footer-link">#JavaScript</a>
+            <a href="/tags/astro" class="footer-link">#Astro</a>
+            <a href="/tags/learning" class="footer-link">#Learning</a>
+            <a href="/tags/projects" class="footer-link">#Projects</a>
+          </div>
+        </div>
+        <div class="column is-4">
+          <h4 class="title is-6 has-text-white mb-3">Connect</h4>
+          <div class="social-icons">
+            <a href="https://github.com/yourusername" class="social-icon" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/yourusername" class="social-icon" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://twitter.com/yourusername" class="social-icon" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="mailto:your@email.com" class="social-icon">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Copyright -->
+      <div class="footer-bottom">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <p class="has-text-grey-light">
+              © {new Date().getFullYear()} Made with 💜 and lots of ☕
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>

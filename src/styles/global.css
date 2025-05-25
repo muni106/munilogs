@@ -10,8 +10,8 @@ html {
   
   body {
     margin: 0 auto;
-    width: 100%;
-    max-width: 80ch;
+    width: 95%;
+    max-width: 170ch;
     padding: 1rem;
     line-height: 1.5;
   }
@@ -64,8 +64,19 @@ html {
   #postCard {
     display: flex;
   }
-  
-  
+
+  footer {
+    background-color: transparent !important;
+  }
+  .footer-hr {
+    width: 50%;
+    margin: 2rem auto;
+  }
+  .navbar {
+    margin-bottom: 10px;
+  }
+
+
   @media (max-width: 480px) {
     .nav-container {
       display: flex;
