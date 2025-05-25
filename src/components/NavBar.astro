@@ -1,4 +1,6 @@
 ---
+import Search from "./Search.astro";
+import ThemeToggle from "./ThemeToggle.astro"
 ---
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
@@ -57,6 +59,14 @@
     </div>
 
     <div class="navbar-end">
+          <div class="navbar-item">
+            <!-- Add theme toggle here -->
+            <ThemeToggle />
+        </div>
+          <div class="navbar-item">
+                <!-- Add the search component here -->
+                <Search />
+            </div>
       <div class="navbar-item">
         <div class="social-icons">
           <a href="https://github.com/muni106" target="_blank" rel="noopener" class="social-link">

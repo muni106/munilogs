@@ -1,0 +1,115 @@
+---
+// LiveSearch.astro
+---
+
+<div class="search-container">
+  <div class="field has-addons">
+    <div class="control has-icons-left is-expanded">
+      <input 
+        id="live-search" 
+        class="input" 
+        type="text" 
+        placeholder="Search posts..."
+        autocomplete="off"
+      >
+      <span class="icon is-small is-left">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
+  </div>
+  
+  <div id="search-results" class="search-results-dropdown"></div>
+</div>
+
+<script is:inline>
+let pagefind;
+let searchTimeout;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('live-search');
+  const resultsContainer = document.getElementById('search-results');
+
+  // Load pagefind when user focuses on search
+  searchInput.addEventListener('focus', async () => {
+    if (!pagefind) {
+      try {
+        pagefind = await import('/pagefind/pagefind.js');
+        await pagefind.init();
+      } catch (error) {
+        console.log('Pagefind not available:', error);
+      }
+    }
+  });
+
+  // Live search while typing
+  searchInput.addEventListener('input', async (e) => {
+    const query = e.target.value.trim();
+    
+    if (searchTimeout) {
+      clearTimeout(searchTimeout);
+    }
+    
+    searchTimeout = setTimeout(async () => {
+      if (!query) {
+        resultsContainer.innerHTML = '';
+        resultsContainer.classList.remove('show');
+        return;
+      }
+      
+      if (pagefind && query.length >= 2) {
+        try {
+          const search = await pagefind.search(query);
+          displayResults(search.results.slice(0, 5));
+        } catch (error) {
+          console.log('Search error:', error);
+        }
+      }
+    }, 300);
+  });
+
+  // Display search results
+  async function displayResults(results) {
+    if (!results || results.length === 0) {
+      resultsContainer.innerHTML = '<div class="search-result-item">No results found</div>';
+      resultsContainer.classList.add('show');
+      return;
+    }
+    
+    let html = '';
+    for (const result of results) {
+      const data = await result.data();
+      html += `
+        <a href="${data.url}" class="search-result-item">
+          <div class="search-result-title">${data.meta.title || 'Untitled'}</div>
+          <div class="search-result-excerpt">${data.excerpt}</div>
+        </a>
+      `;
+    }
+    
+    resultsContainer.innerHTML = html;
+    resultsContainer.classList.add('show');
+  }
+
+  // Hide results when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-container')) {
+      resultsContainer.classList.remove('show');
+    }
+  });
+
+  // Clear search on escape
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      resultsContainer.innerHTML = '';
+      resultsContainer.classList.remove('show');
+      searchInput.blur();
+    }
+  });
+});
+</script>
+
+<!-- Your existing styles here -->
+<style>
+/* ... your existing styles ... */
+</style>
