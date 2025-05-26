@@ -36,26 +36,29 @@ import ThemeToggle from "./ThemeToggle.astro"
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a id="aboutMeNav" href="/about" class="navbar-item">
-        About me
-      </a>
       <div class="navbar-item has-dropdown is-hoverable">
         <a id="blogNav" class="navbar-link">
-          Blog
+          Logs
         </a>
-
         <div class="navbar-dropdown">
           <a id="allBlogsDrop" href="/blog" class="navbar-item">
             All Posts
           </a>
-          <a id="topicDrop" href="/topics" class="navbar-item">
-            Topic Sections
+          <a id="topicDrop" href="/categories" class="navbar-item">
+            Categories
           </a>
           <a id="tagDrop" href="/tags" class="navbar-item">
             Tags
           </a>
         </div>
-      </div>
+    </div>
+      <a id="aboutMeNav" href="/about" class="navbar-item">
+        About me
+      </a>
+      <a id="projectsNav" href="/projects" class="navbar-item">
+        Projects
+      </a>
+      
     </div>
 
     <div class="navbar-end">

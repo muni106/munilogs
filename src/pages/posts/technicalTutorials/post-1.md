@@ -1,12 +1,14 @@
 ---
-layout: ../../layouts/PostLayout.astro
-title: 'My First Blog Post'
-pubDate: 2022-07-01
+layout: ../../../layouts/PostLayout.astro
+title: 'My First Tech Blog Post'
+featured: true
 description: 'This is the first post of my new Astro blog.'
 author: 'mounirsamite'
 image:
     url: 'https://docs.astro.build/assets/rose.webp'
     alt: 'The Astro logo on a dark background with a pink glow.'
+pubDate: 2022-07-01
+time: 10
 tags: ["astro", "blogging", "learning in public", "pazzo"]
 ---
 
