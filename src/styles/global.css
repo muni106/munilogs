@@ -1,132 +1,69 @@
-@import "bulma/css/bulma.min.css";
+@import "tailwindcss";
+@import "./typography.css";
 
-:root {
-  --font-sans: "Chakra Petch", sans-serif;
-  --font-display: "Orbitron", sans-serif;
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root,
+html[data-theme="light"] {
+  --background: #fdfdfd;
+  --foreground: #282728;
+  --accent: #006cac;
+  --muted: #e6e6e6;
+  --border: #ece9e9;
 }
-html {
-    font-family: var(--font-sans);
-  }
-  
-  body {
-    margin: 0 auto;
-    width: 95%;
-    max-width: 170ch;
-    padding: 1rem;
-    line-height: 1.5;
-  }
-  
+
+html[data-theme="dark"] {
+  --background: #212737;
+  --foreground: #eaedf3;
+  --accent: #ff6b01;
+  --muted: #343f60bf;
+  --border: #ab4b08;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+}
+
+@layer base {
   * {
-    box-sizing: border-box;
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
   }
-
-  h1,h2,h3 { font-family: var(--font-display); letter-spacing: .03em; }
-
-  /* nav styles */
-  .search-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 1rem; /* Space between search and hamburger */
+  html {
+    @apply overflow-y-scroll scroll-smooth;
+  }
+  body {
+    @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+  }
+  a,
+  button {
+    @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
     cursor: pointer;
-    z-index: 10; /* Same as hamburger */
   }
-
-  #search-form {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    padding: 0.5rem;
-    background: white;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    display: flex;
-  }
-
-  #search-form.hidden {
-    display: none;
-  }
-
-  #search-form input {
-    border: 1px solid #ddd;
-    padding: 0.5rem;
-    border-radius: 4px 0 0 4px;
-  }
-
-  #search-form button {
-    background: #f5f5f5;
-    border: 1px solid #ddd;
-    border-left: none;
-    padding: 0 0.5rem;
-    border-radius: 0 4px 4px 0;
-  }
-
-  #postCard {
-    display: flex;
-  }
-
+  section,
   footer {
-    background-color: transparent !important;
+    @apply mx-auto max-w-app px-4;
   }
-  .footer-hr {
-    width: 50%;
-    margin: 2rem auto;
-  }
-  .navbar {
-    margin-bottom: 10px;
-  }
+}
 
+@utility max-w-app {
+  @apply max-w-3xl;
+}
 
-  @media (max-width: 480px) {
-    .nav-container {
-      display: flex;
-      justify-content: space-between; /* pushes items to far left and right */
-      align-items: center;
-    }
+.active-nav {
+  @apply underline decoration-wavy decoration-2 underline-offset-4;
+}
 
-    .search-btn {
-      margin-right: 0rem;
-    }
-
-    .right {
-       margin-left: auto; 
-    }
-
-    .hamburger {
-      padding-right: 20px;
-      cursor: pointer;
-    }
-    .hamburger .line {
-      display: block;
-      width: 1.5rem;
-      height: 0.1rem;
-      margin-bottom: 0.5rem;
-      background-color: #000;
-    }
-
-    .nav-links {
-      width: 100%;
-      top: 5rem;
-      left: 48px;
-      background-color: #ff9776;
-      display: none;
-      margin: 0;
-    }
-    .expanded {
-        display: unset;
-     }
-    
-    .nav-links a {
-      display: block;
-      text-align: center;
-      padding: 10px 0;
-      text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    .nav-links a:hover,
-    .nav-links a:focus {
-      background-color: yeel;
-    }
-  }
+/* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 1rem;
+}
