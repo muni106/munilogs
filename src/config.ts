@@ -1,10 +1,10 @@
 export const SITE = {
-  website: "https://astro-paper.pages.dev/", // replace this with your deployed domain
+  website: "https://munilogs.netlify.app/",
   author: "Mounir Samite",
   profile: "https://github.com/muni106",
-  desc: "Here I talk about cool things.",
+  desc: "my personal chronicle of exploration, ideas, and continuous growth.",
   title: "Mounir Samite",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "", //TODO change in future
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,
@@ -13,11 +13,11 @@ export const SITE = {
   showBackButton: true, // show back button in post detail
   editPost: {
     enabled: true,
-    text: "Edit page",
+    text: "Suggest changes",
     url: "https://github.com/muni106",
   },
   dynamicOgImage: true,
   dir: "ltr", // "rtl" | "auto"
   lang: "en", // html lang code. Set this empty and default will be "en"
-  timezone: "Asia/Bangkok", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  timezone: "Europe/Rome", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 } as const;
