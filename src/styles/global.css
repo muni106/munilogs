@@ -5,19 +5,18 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
-  --muted: #e6e6e6;
-  --border: #ece9e9;
+  --background: #f5f7fa;      /* Soft, light gray-blue */
+  --foreground: #2e3440;      /* Deep slate for text */
+  --accent: #7fa6ee;          /* Muted sky blue for highlights */
+  --muted: #dbeafe;           /* Pale blue for cards and subtle UI */
+  --border: #bfc9d1;          /* Light cool gray for gentle borders */
 }
-
 html[data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --muted: #343f60bf;
-  --border: #ab4b08;
+  --background: #232946;      /* Deep blue-gray for a mellow night look */
+  --foreground: #f5f7fa;      /* Soft light gray for text */
+  --accent: #7fa6ee;          /* Muted sky blue for highlights */
+  --muted: #393e54;           /* Muted blue-gray for panels and muted UI */
+  --border: #5c677d;          /* Cool gray-blue for borders */
 }
 
 @theme inline {
@@ -55,7 +54,7 @@ html[data-theme="dark"] {
 }
 
 @utility max-w-app {
-  @apply max-w-3xl;
+  @apply max-w-5xl;
 }
 
 .active-nav {
