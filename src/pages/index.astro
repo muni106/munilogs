@@ -43,15 +43,7 @@ const recentProjects = sortedProjects.filter(({ data }) => !data.featured);
         guides on setting up development environments and workflows, practical tutorials for problemsolving and automation, 
         and reflections on my personal growth in the field.
       </p>
-      <br>
-      <br>
-      <h2 class="my-3 text-4xl font-bold">
-        Why I built this site
-      </h2>
-      <p>
-        I created this website to document my progress, share knowledge, and connect with others passionate about technology and personal development. 
-        It’s a space for learning out loud, celebrating wins, and reflecting on setbacks.
-      </p>
+      
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
@@ -81,7 +73,7 @@ const recentProjects = sortedProjects.filter(({ data }) => !data.featured);
         </>
       )
     }
-    
+
     {
       // BEST BLOG POSTS
       featuredPosts.length > 0 && (
