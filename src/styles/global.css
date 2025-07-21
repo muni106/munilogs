@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./typography.css";
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
@@ -13,6 +14,7 @@ html[data-theme="light"] {
 }
 html[data-theme="dark"] {
   --background: #232946;      /* Deep blue-gray for a mellow night look */
+  --headings: #9ee9d6;
   --foreground: #f5f7fa;      /* Soft light gray for text */
   --accent: #7fa6ee;          /* Muted sky blue for highlights */
   --muted: #393e54;           /* Muted blue-gray for panels and muted UI */
@@ -39,6 +41,14 @@ html[data-theme="dark"] {
   body {
     @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
   }
+
+  body {
+    font-family: "Poiret One", sans-serif;
+    font-weight: 300;
+    font-size: 115%;
+    font-style: normal;
+  }
+
   a,
   button {
     @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
@@ -66,3 +76,16 @@ html[data-theme="dark"] {
 :target {
   scroll-margin-block: 1rem;
 }
+
+
+h1, h2, h3 {
+  color: var(--headings);
+}
+h2 {
+  opacity: 0.8;
+}
+
+h3 {
+  opacity: 0.7;
+}
+
