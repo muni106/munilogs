@@ -6,19 +6,20 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #f5f7fa;      /* Soft, light gray-blue */
-  --foreground: #2e3440;      /* Deep slate for text */
-  --accent: #7fa6ee;          /* Muted sky blue for highlights */
-  --muted: #dbeafe;           /* Pale blue for cards and subtle UI */
-  --border: #bfc9d1;          /* Light cool gray for gentle borders */
+  --background: #f5f7fa;      
+  --foreground: #2e3440;      
+  --accent: #6366f1;          
+  --muted: #dbeafe;           
+  --border: #bfc9d1;     
+  --headings: #0f172a;     
 }
 html[data-theme="dark"] {
-  --background: #232946;      /* Deep blue-gray for a mellow night look */
-  --headings: #9ee9d6;
-  --foreground: #f5f7fa;      /* Soft light gray for text */
-  --accent: #7fa6ee;          /* Muted sky blue for highlights */
-  --muted: #393e54;           /* Muted blue-gray for panels and muted UI */
-  --border: #5c677d;          /* Cool gray-blue for borders */
+  --background: #0f172a;      
+  --headings: #e0e7ff;        
+  --foreground: #f1f5f9;      
+  --accent: #a1a2f2;          
+  --muted: #334155;           
+  --border: #475569;      
 }
 
 @theme inline {
@@ -78,7 +79,7 @@ html[data-theme="dark"] {
 }
 
 
-h1, h2, h3 {
+h1, h2 {
   color: var(--headings);
 }
 h2 {
