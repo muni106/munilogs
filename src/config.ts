@@ -1,10 +1,10 @@
 export const SITE = {
-  website: "https://munilogs.netlify.app/",
+  website: "https://mounirsamite.com/",
   author: "Mounir Samite",
   profile: "https://github.com/muni106",
   desc: "my personal chronicle of exploration, ideas, and continuous growth.",
   title: "Mounir Samite",
-  ogImage: "", //TODO change in future
+  ogImage: "/public/assets/ogImage.jpg", //TODO change in future
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 10,
