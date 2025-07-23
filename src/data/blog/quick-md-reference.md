@@ -95,3 +95,66 @@ Frontmatter lies at the top of the article and is written in YAML format. Read m
 ```md
 ![An arrow pointing at the website logo](https://res.cloudinary.com/noezectz/v1663911318/astro-paper/AstroPaper-logo-config_goff5l.png)
 ```
+
+## Sample Frontmatter
+
+Here is the sample frontmatter for a post.
+
+```yaml file="src/data/blog/sample-post.md"
+---
+title: The title of the post
+author: your name
+pubDatetime: 2022-09-21T05:17:19Z
+slug: the-title-of-the-post
+featured: true
+draft: false
+tags:
+  - some
+  - example
+  - tags
+ogImage: ../../assets/images/example.png # src/assets/images/example.png
+# ogImage: "https://example.org/remote-image.png" # remote URL
+description: This is the example description of the example post.
+canonicalURL: https://example.org/my-article-was-already-posted-here
+---
+```
+
+
+## Inside `src/assets/` directory (recommended)
+
+You can store images inside `src/assets/` directory. These images will be automatically optimized by Astro through [Image Service API](https://docs.astro.build/en/reference/image-service-reference/).
+
+You can use relative path or alias path (`@/assets/`) to serve these images.
+```md
+![something](@/assets/images/example.jpg)
+
+<!-- OR -->
+
+![something](../../assets/images/example.jpg)
+
+<!-- Using img tag or Image component won't work ❌ -->
+<img src="@/assets/images/example.jpg" alt="something">
+<!-- ^^ This is wrong -->
+```
+
+## Inside `public` directory
+
+You can store images inside the `public` directory. Keep in mind that images stored in the `public` directory remain untouched by Astro, meaning they will be unoptimized and you need to handle image optimization by yourself.
+
+```md
+![something](/assets/images/example.jpg)
+
+<!-- OR -->
+
+<img src="/assets/images/example.jpg" alt="something">
+```
+
+## subdirectories
+```bash
+# Example: blog post structure and URLs
+src/data/blog/very-first-post.md          -> mysite.com/posts/very-first-post
+src/data/blog/2025/example-post.md        -> mysite.com/posts/2025/example-post
+src/data/blog/_2026/another-post.md       -> mysite.com/posts/another-post
+src/data/blog/docs/_legacy/how-to.md      -> mysite.com/posts/docs/how-to
+src/data/blog/Example Dir/Dummy Post.md   -> mysite.com/posts/example-dir/dummy-post
+```
