@@ -3,13 +3,6 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-
-<img 
-  src="/public/assets/prof2.jpeg" 
-  alt="Description of the image" 
-  class="w-48 h-48 rounded-full object-cover border-2 border-gray-300 shadow-lg"
-/>
-
 ## Whoami?
 Hi, I'm Mounir Samite, a computer science engineering student at University of Bologna, in Italy.
 I'm currently pursuing my Master's degree.
