@@ -2,7 +2,7 @@
 title: SMOL
 author: Mounir Samite
 pubDatetime: 2023-04-25T05:17:19Z
-slug: SCALcetto
+slug: smol
 featured: false
 draft: true
 tags:
