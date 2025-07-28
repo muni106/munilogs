@@ -110,4 +110,3 @@ Prolog attems to satisfy the query by matching it, via unification and backtrack
 | Relational/multiple variables | `?- parent(Parent, Child).` | Generates all parent-child pairs stored or derivable in the database. |
 | Compound (conjunction) | `?- location(X, kitchen), edible(X).` | Both subgoals must succeed for the same `X`; the comma means logical **and**. |
 | Arithmetic/comparison | `?- 2 < 5.` | Evaluated via built-in comparison predicates; succeeds here. |
-
