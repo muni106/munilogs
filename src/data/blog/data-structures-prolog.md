@@ -41,7 +41,7 @@ max(A, B, A) :- A >= B, !.   % once this succeeds, stop exploring
 max(_, B, B).                % otherwise choose the second clause
 ```
 
-# Lists in prolog
+# Lists
 
 ## Syntax
 The concrete syntax:
@@ -50,7 +50,7 @@ The concrete syntax:
 - `[]`
 
 ## Built-ins for Lists
-The number after the slash is not part of the predicate’s name, it states the predicate’s arity, the count of arguments that predicate takes.
+The number after the slash is not part of the predicate’s name, it states the predicate’s arity (the count of arguments that predicate takes).
 
 | Predicate (Arity) | Purpose | Typical Use |
 | :-- | :-- | :-- |
