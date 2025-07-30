@@ -65,6 +65,12 @@ likes(alice, pizza). %% alice likes pizza
 male(bob). %% bob is  a male
 ```
 
+In facts:
+- **Atoms** are constant symbols, starting with a lowercase letter or enclosed in single quotes.
+- **Variables** are identifiers beginning with an uppercase letter or an underscore.
+- **Complex terms** are structures consisting of a functor and arguments (like `loves(Vincent, mia)`, where loves is the functor).
+
+
 ## Rules
 **Rules** in prolog are logical statements that define relationships between facts and allow deduction of new information from existing data.
 A rule, `Head :- Body.` is structured so `Head` is the the predicate (what i want to enstablish / find out if it's true), and `Body` is a sequence of conditions that must all be true for the `Head` to be true.

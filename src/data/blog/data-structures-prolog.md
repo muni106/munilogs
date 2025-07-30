@@ -23,7 +23,7 @@ description: I talk about lists, numbers and graphs in prolog.
 # Intro
 Like any other programming language, also in Prolog we have data structures, here we will talk about 3 of them:
 - lists
-- numbers
+- numbers (primitive values)
 - graphs
 
 <br>
@@ -73,3 +73,13 @@ The number after the slash is not part of the predicate’s name, it states the 
 All of these are *relational*: any argument may be a variable (though `length/2` requires its second arg ground when generating).
 
 ## Practice Lists
+
+### Build a list which search for 2 consecutive occurencies of an element.
+- The predicate uses **pattern matching** and recursion
+
+```prolog
+search2(Elem, [Elem, Elem | _]).
+search2(Elem, [_ | Rest]) :- search2(Elem, Rest).
+```
+
+- 
