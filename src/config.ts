@@ -14,7 +14,7 @@ export const SITE = {
   editPost: {
     enabled: true,
     text: "Suggest changes",
-    url: "https://github.com/muni106",
+    url: "https://github.com/muni106/",
   },
   dynamicOgImage: true,
   dir: "ltr", // "rtl" | "auto"

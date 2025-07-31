@@ -4,7 +4,7 @@ author: Mounir Samite
 pubDatetime: 2025-07-18T05:17:19Z
 slug: SCALcetto
 featured: false
-draft: true
+draft: false
 tags:
   - scala
   - functional-programming
@@ -18,16 +18,16 @@ description: A football simulation.
 ## Table of contents
 
 # Situation
-For my *Programming and Development Paradigms* course I had to develop a project using functional programming in Scala 3.
+For my *Programming and Development Paradigms* course I developed a project making use of functional programming in Scala 3.
 I grouped with 2 classmates, and together we decided to go for a football simulation.
 
 # Task
-We called the project SCALcetto, because it reminded of scala also it reminded of calcetto, which is five-a-side football.
+We called the project SCALcetto, because it reminded of scala and *"calcetto"*, which is five-a-side football in italian.
 The goal of the project was to explore advanced scala and functional programming concepts, this is why we decided to keep a small domain (e.g. no goalkeeper) and focused more on making use of advanced fp concepts.
 Furthermore we had to use tdd (test-driven-development), and SCRUM to keep a good organization inside the team.
 
 # Action
-The first thing we did was to setup the project, in this phase I **setuped the project** with sbt, **developed the docs** with jekyll and [hosted them with github pages](tommasobrini.github.io/PPS-24-SCALcetto/).
+The first thing we did was to setup the project, in this phase I **setuped the project** with sbt, developed the [docs](tommasobrini.github.io/PPS-24-SCALcetto/) with jekyll and hosted them with github pages.
 <br>
 Then the main parts where I worked are described in the next sections.
 
@@ -38,10 +38,9 @@ The model is practically an immutable state which change every step following so
 I must say this architecture is really powerfull and made the development process very pleasant.
 
 ## Decide-Validate-Act
-To manage the intelligence of the player we came up with an architecture based in 3 layers inside *Update*.
-To understand better the following this is the snippet of code that defines a player.
+To manage the players intelligence we came up with an architecture based in 3 layers inside *Update*.
 
-```scala
+```scala file=Match.scala
   case class Player(
       id: ID,
       position: Position,
@@ -84,5 +83,44 @@ Those 3 layers worked like a chain of responsibility, in all the layers they get
 ## Creational DSL
 This is probably one of the best pieces of code I ever wrote.
 <br>
-We needed a way to create states fastly because:
+We needed something to create new states from scratch in a scalable and fast way, to create for example game situations like the kickoff, free kick and corner. 
+Additionally we needed something to create new states for tests faster and remove repeated code (KISS).
+<br>
+I then came up with a creational DSL that managed to create a new match from scratch in a few lines of code, using a **Builder pattern** to effectively create the situation and **context functions** to build that small language that we used all around the project to make more sensible tests and better code.
+<br>
+More about this part here:
 
+- [code](https://github.com/TommasoBrini/PPS-24-SCALcetto/tree/main/src/main/scala/dsl/creation)
+- [docs](https://tommasobrini.github.io/PPS-24-SCALcetto/report/implementazione/samite_mounir.html)
+
+```scala3 file=dsl_usage.scala
+val state = newMatch(Score.init()):
+      team(West):
+        player(0) decidedTo Tackle(ball) isGoingTo Take(ball)
+      team(East):
+        player(1)
+```
+
+or 
+
+```scala3 file=kickoff.scala
+  def kickOff(score: Score, side: Side = West): MatchState =
+    newMatch(score):
+      if side == West then
+        startingTeam(West)
+        defendingTeam(East)
+      else
+        startingTeam(East)
+        defendingTeam(West)
+      ball at (fieldWidth / 2, fieldHeight / 2) move (Direction(0, 0), 0)
+```
+
+# Results
+
+![final result](../../assets/images/projects/SCALcetto.gif)
+
+
+# More
+- [repository](https://github.com/TommasoBrini/PPS-24-SCALcetto?tab=readme-ov-file)
+- [docs](https://tommasobrini.github.io/PPS-24-SCALcetto/)
+- [jar](https://github.com/TommasoBrini/PPS-24-SCALcetto/releases/download/v3.2.0/SCALcetto.jar)
