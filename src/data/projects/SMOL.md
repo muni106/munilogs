@@ -176,3 +176,6 @@ Our team brought the game from concept to completion, delivering a smooth runnin
 
 
 # More
+
+- [repository](https://github.com/ferriforty/OOP22-SMOL)
+- [report](https://github.com/ferriforty/OOP22-SMOL/blob/master/report.pdf)

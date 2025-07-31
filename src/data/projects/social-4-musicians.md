@@ -141,3 +141,5 @@ The prototype now features a solid relational core, working authentication and a
 ![front_page](@/assets/images/projects/look_S4M.png)
 
 
+# More 
+- [repo](https://github.com/muni106/social4musicians)
