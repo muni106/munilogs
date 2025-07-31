@@ -170,3 +170,9 @@ public class GameViewState implements WindowState {
 
 # Results
 Our team brought the game from concept to completion, delivering a smooth running JavaFX title that satisfied every project requirement while exemplifying sound object oriented design. By architecting the interface around the State pattern and delegating entity logic to a dedicated World class, we achieved a highly modular codebase that future developers can extend or refactor with minimal ripple effects. Along the way, I deepened my grasp of patterns such as State and Iterator, sharpened my Java and GUI programming skills, and saw firsthand how adhering to MVC principles promotes scalability and maintainability. Equally important, the project strengthened my teamwork and communication abilities as we wove our individual contributions into one cohesive, engaging product.
+
+![final result pixeled](@/assets/images/projects/smol1.gif)
+![final result vectorial](@/assets/images/projects/smol2.gif)
+
+
+# More
