@@ -18,7 +18,12 @@ Since i was a kid everyone suggested to me, as a study method, to read sections 
 <br>
 But what if that advice was actually holding us back?
 
-# Doubts
-When I was in highschool I started doubting this learning method, some questions popped in my mind like: why should I spend a lot of time learning something that I will forget in probably a week? how can I spend less time?
-A lot of friends of mine had to giveup on some activities, like sports or music, to keep up with their studies, in **HIGHSCHOL**, which for me was never an option.
-Those extra activities are what define you, what I learnt with basketball and theater, will always be a part of me, and It helped me in **a lot** of situations.
+# My story
+From when i was in elementary school I thought it was normal to forget things you learn after an examination.
+I crammed, resulting in kinda good performances in examinations, but always not remembering 80/90% of what I learnt.
+I didn't enjoy learning at all, it had no purpose if not getting high grades, then I decided to study the minimum to pass.
+<br>
+
+When I passed the entrance exam for university something changes, I started thinking about why I decided to study computer science in a university, and I didn't want to forget everything I was learning, then I decided to study how to study.
+
+# My failures
