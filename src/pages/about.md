@@ -4,10 +4,7 @@ title: "About"
 ---
 
 ## Whoami?
-Hi, I'm Mounir Samite, a computer science engineering student at University of Bologna, in Italy.
-I'm currently pursuing my Master's degree.
-I love solving hard problems and turning them into simple, useful solutions. Building things, whether clean code or new ideas, keeps me excited. 
-I enjoy changing abstract thoughts into real projects and keep challenging myself through constant learning and practice.
+I'm a student that loves building things from scratch
 
 ## Life style
 I believe that excelling in any field requires strong mental health, which stems from a balanced lifestyle. 
