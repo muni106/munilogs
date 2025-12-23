@@ -12,7 +12,6 @@ import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 import getSortedProjPosts from "@/utils/getSortedProjPosts";
-import ProjCard from "@/components/ProjCard.astro";
 
 const posts = await getCollection("blog");
 const projects = await getCollection("projects");
@@ -20,7 +19,6 @@ const projects = await getCollection("projects");
 const sortedPosts = getSortedPosts(posts);
 const sortedProjects = getSortedProjPosts(projects)
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const featuredProjects = sortedProjects.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 const recentProjects = sortedProjects.filter(({ data }) => !data.featured);
 
@@ -57,23 +55,6 @@ const recentProjects = sortedProjects.filter(({ data }) => !data.featured);
     <Hr />
 
     {
-      // BEST PROJECTS
-      featuredProjects.length > 0 && (
-        <>
-          <section id="featured" class="pt-12 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">Main Projects</h2>
-            <ul>
-              {featuredProjects.map(data => (
-                <ProjCard variant="h3" {...data} />
-              ))}
-            </ul>
-          </section>
-          {recentPosts.length > 0 && <Hr />}
-        </>
-      )
-    }
-
-    {
       // BEST BLOG POSTS
       featuredPosts.length > 0 && (
         <>
@@ -89,29 +70,6 @@ const recentProjects = sortedProjects.filter(({ data }) => !data.featured);
         </>
       )
     }
-
-    {
-      // RECENT PROJECTS
-      recentProjects.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Projects</h2>
-          <ul>
-            {recentProjects.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <ProjCard variant="h3" {...data} />
-            )}
-          </ul>
-        </section>
-      )
-    }
-    <div class="my-8 text-center">
-      <LinkButton href="/projects/">
-        All Projects
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
-
-
 
     {
       // RECENT BLOG POSTS
