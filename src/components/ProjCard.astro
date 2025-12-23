@@ -1,36 +1,24 @@
 ---
-import { slugifyStr } from "@/utils/slugify";
 import type { CollectionEntry } from "astro:content";
-import { getPath } from "@/utils/getProjPath";
-import Datetime from "./Datetime.astro";
 
 export interface Props extends CollectionEntry<"projects"> {
   variant?: "h2" | "h3";
 }
 
-const { variant = "h2", data, id, filePath } = Astro.props;
+const { variant = "h2", project } = Astro.props;
 
-const { title, description, pubDatetime, modDatetime, timezone } = data;
+const { title, description, imageUrl, pubDate} = project;
 
-const headerProps = {
-  style: { viewTransitionName: slugifyStr(title) },
-  class: "text-lg font-medium decoration-dashed hover:underline",
-};
 ---
 
-<li class="my-6">
-  <a
-    href={getPath(id, filePath)}
-    class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
-  >
-    {
-      variant === "h2" ? (
-        <h2 {...headerProps}>{title}</h2>
-      ) : (
-        <h3 {...headerProps}>{title}</h3>
-      )
-    }
-  </a>
-  <Datetime {pubDatetime} {modDatetime} {timezone} />
-  <p>{description}</p>
-</li>
+<div class="max-w-sm border rounded-lg shadow-md overflow-hidden">
+  <img class="rounded-t-lg w-full h-48 object-cover" src={imageUrl} alt="bulabulaNoImage">
+    <div class="p-6">
+      <h1 class="font-bold tracking-tight">{title}</h1>
+      <p >{description}</p> 
+      <p >{pubDate}</p> 
+      <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600">
+        Read more
+      </a>
+    </div>
+</div>

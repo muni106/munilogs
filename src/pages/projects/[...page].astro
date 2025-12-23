@@ -9,24 +9,33 @@ import ProjCard from "@/components/ProjCard.astro";
 import ProjPagination from "@/components/ProjPagination.astro";
 import getSortedProjPosts from "@/utils/getSortedProjPosts";
 import { SITE } from "@/config";
+import projects from '@/data/projects.json'
+import type { ACTION_ERROR_CODES, ACTION_QUERY_PARAMS } from "astro:actions";
+
+// interface Project {
+//   name: string;
+//   description: string;
+//   imageUrl: string;
+// }
+
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("projects", ({ data }) => !data.draft);
   return paginate(getSortedProjPosts(posts), { pageSize: SITE.postPerPage });
 }) satisfies GetStaticPaths;
 
-const { page } = Astro.props;
 ---
 
 <Layout title={`Projects | ${SITE.title}`}>
   <Header />
   <Main pageTitle="Projects" pageDesc="All the projects i worked on.">
-    <ul>
-      {page.data.map(data => <ProjCard {...data} />)}
-    </ul>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
+      {projects.map(project => <ProjCard {project} />)}
+
+    </div>
+
   </Main>
 
-  <ProjPagination {page} />
 
-  <Footer noMarginTop={page.lastPage > 1} />
+  <Footer />
 </Layout>
