@@ -1,25 +1,39 @@
 @import "tailwindcss";
 @import "./typography.css";
-@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root,
 html[data-theme="light"] {
-  --background: #f5f7fa;      
-  --foreground: #2e3440;      
-  --accent: #6366f1;          
-  --muted: #dbeafe;           
-  --border: #bfc9d1;     
-  --headings: #0f172a;     
+  /* Tailwind Slate 50 */
+  --background: #f8fafc;      
+  /* Tailwind Slate 900 */
+  --foreground: #0f172a;      
+  /* Tailwind Slate 950 (Deep for hierarchy) */
+  --headings: #020617;        
+  /* Tailwind Indigo 600 */
+  --accent: #4f46e5;          
+  /* Tailwind Slate 100 */
+  --muted: #f1f5f9;            
+  /* Tailwind Slate 200 */
+  --border: #e2e8f0;      
 }
+
 html[data-theme="dark"] {
-  --background: #0f172a;      
-  --headings: #e0e7ff;        
+  /* Tailwind Slate 950 */
+  --background: #020617;      
+  /* Tailwind Slate 100 */
   --foreground: #f1f5f9;      
-  --accent: #a1a2f2;          
-  --muted: #334155;           
-  --border: #475569;      
+  /* Tailwind Slate 50 */
+  --headings: #f8fafc;        
+  /* Tailwind Indigo 400 */
+  --accent: #818cf8;          
+  /* Tailwind Slate 800 */
+  --muted: #1e293b;            
+  /* Tailwind Slate 700 */
+  --border: #334155;      
 }
 
 @theme inline {
@@ -44,7 +58,7 @@ html[data-theme="dark"] {
   }
 
   body {
-    font-family: "Poiret One", sans-serif;
+    font-family: 'Inter Variable', sans-serif;
     font-weight: 300;
     font-size: 115%;
     font-style: normal;
@@ -88,5 +102,13 @@ h2 {
 
 h3 {
   opacity: 0.7;
+}
+
+code {
+  font-family: 'JetBrains Mono Variable', monospace;
+  font-size: 115%;
+  font-variant-ligatures: discretionary-ligatures;
+  font-feature-settings: "liga", "calt";
+  font-weight: 350;
 }
 
