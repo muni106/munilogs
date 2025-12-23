@@ -35,7 +35,8 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [tailwindcss()],
+    // @ts-expect-error astro uses vite 6 while tailwind vite 7
+    plugins: [...tailwindcss()],
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
