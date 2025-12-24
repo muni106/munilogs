@@ -2,14 +2,14 @@
     {
         "title": "proj name",
         "description": "This is a brief project description",
-        "imageUrl": "src/assets/images/projects/conc_S4M.png",
+        "imageUrl": "/projects/conc_S4M.png",
         "pubDate": "2025-12-24",
         "link": "https://www.rabbitmq.com/tutorials"
     },
     {
         "title": "proj name2",
         "description": "This is a brief project description2",
-        "imageUrl": "src/assets/images/projects/logical_S4M.png",
+        "imageUrl": "/projects/logical_S4M.png",
         "pubDate": "2025-12-24",
         "link": "google.com"
     }
