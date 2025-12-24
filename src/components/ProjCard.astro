@@ -1,24 +1,45 @@
 ---
-import type { CollectionEntry } from "astro:content";
-
-export interface Props extends CollectionEntry<"projects"> {
-  variant?: "h2" | "h3";
-}
-
-const { variant = "h2", project } = Astro.props;
-
-const { title, description, imageUrl, pubDate} = project;
-
+const { project } = Astro.props;
+const { title, description, imageUrl, pubDate, link } = project;
 ---
 
-<div class="max-w-sm border rounded-lg shadow-md overflow-hidden">
-  <img class="rounded-t-lg w-full h-48 object-cover" src={imageUrl} alt="bulabulaNoImage">
-    <div class="p-6">
-      <h1 class="font-bold tracking-tight">{title}</h1>
-      <p >{description}</p> 
-      <p >{pubDate}</p> 
-      <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-blue-600">
-        Read more
-      </a>
+<article class="group relative overflow-hidden rounded-lg border border-border bg-background transition-all duration-300 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10">
+  <a href={link} class="block no-underline">
+    {imageUrl && (
+      <div class="aspect-video w-full overflow-hidden border-b border-border bg-muted">
+        <img 
+          src={imageUrl} 
+          alt={title}
+          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+    )}
+    
+    <div class="p-5 space-y-3">
+      <div class="flex items-start justify-between gap-3">
+        <h3 class="text-xl font-bold text-headings not-italic leading-snug group-hover:text-accent transition-colors duration-200">
+          {title}
+        </h3>
+        <svg 
+          class="mt-1 h-5 w-5 flex-shrink-0 text-muted transition-all duration-200 group-hover:translate-x-1 group-hover:text-accent" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </div>
+      
+      <p class="text-foreground/80 leading-relaxed line-clamp-3">
+        {description}
+      </p>
+      
+      <time 
+        datetime={pubDate} 
+        class="block text-sm text-foreground/60 font-light tracking-wide"
+      >
+        {new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
     </div>
-</div>
+  </a>
+</article>

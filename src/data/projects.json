@@ -1,14 +1,16 @@
 [
     {
-        "name": "proj name",
+        "title": "proj name",
         "description": "This is a brief project description",
-        "imageUrl": "./assets/images/projects/conc_S4M.png",
-        "pubDate": "yesterday"
+        "imageUrl": "src/assets/images/projects/conc_S4M.png",
+        "pubDate": "2025-12-24",
+        "link": "https://www.rabbitmq.com/tutorials"
     },
     {
-        "name": "proj name2",
+        "title": "proj name2",
         "description": "This is a brief project description2",
-        "imageUrl": "./assets/images/projects/logical_S4M.png",
-        "pubDate": "today"
+        "imageUrl": "src/assets/images/projects/logical_S4M.png",
+        "pubDate": "2025-12-24",
+        "link": "google.com"
     }
 ]
