@@ -19,10 +19,9 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 <Layout title={`Projects | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Projects" pageDesc="All the projects i worked on.">
+  <Main pageTitle="Projects" pageDesc="Yes I worked on these!">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
       {projects.map(project => <ProjCard {project} />)}
-
     </div>
 
   </Main>

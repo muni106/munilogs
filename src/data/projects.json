@@ -4,13 +4,55 @@
         "description": "This is a brief project description",
         "imageUrl": "/projects/conc_S4M.png",
         "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials"
+        "link": "https://www.rabbitmq.com/tutorials",
+        "featured": true
+    },
+    {
+        "title": "proj name",
+        "description": "This is a brief project description",
+        "imageUrl": "/projects/conc_S4M.png",
+        "pubDate": "2025-12-24",
+        "link": "https://www.rabbitmq.com/tutorials",
+        "featured": true
     },
     {
         "title": "proj name2",
         "description": "This is a brief project description2",
         "imageUrl": "/projects/logical_S4M.png",
         "pubDate": "2025-12-24",
-        "link": "google.com"
+        "link": "google.com",
+        "featured": false
+    },
+    {
+        "title": "proj name2",
+        "description": "This is a brief project description2",
+        "imageUrl": "/projects/logical_S4M.png",
+        "pubDate": "2025-12-24",
+        "link": "google.com",
+        "featured": false
+    },
+    {
+        "title": "proj name2",
+        "description": "This is a brief project description2",
+        "imageUrl": "/projects/logical_S4M.png",
+        "pubDate": "2025-12-24",
+        "link": "google.com",
+        "featured": false
+    },
+    {
+        "title": "proj name2",
+        "description": "This is a brief project description2",
+        "imageUrl": "/projects/logical_S4M.png",
+        "pubDate": "2025-12-24",
+        "link": "google.com",
+        "featured": false
+    },
+    {
+        "title": "proj name2",
+        "description": "This is a brief project description2",
+        "imageUrl": "/projects/logical_S4M.png",
+        "pubDate": "2025-12-24",
+        "link": "google.com",
+        "featured": false
     }
 ]

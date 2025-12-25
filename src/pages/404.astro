@@ -4,6 +4,14 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
+import jokes from "@/data/404jokes.json"
+
+function getRandom(): number {
+  return Math.floor(Math.random() * jokes.length)
+}
+
+const current404Joke = jokes[getRandom()]
+
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
@@ -17,6 +25,7 @@ import { SITE } from "@/config";
       <h1 class="text-9xl font-bold text-accent">404</h1>
       <span aria-hidden="true">¯\_(ツ)_/¯</span>
       <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
+      <p>{current404Joke}</p>
       <LinkButton
         href="/"
         class="my-6 text-lg underline decoration-dashed underline-offset-8"
