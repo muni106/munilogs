@@ -1,6 +1,6 @@
 ---
 const { project } = Astro.props;
-const { title, description, imageUrl, pubDate, link, featured } = project;
+const { title, description, imageUrl, pubDate, link} = project;
 ---
 
 <article class="group relative overflow-hidden rounded-lg border border-border bg-background transition-all duration-300 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10">
@@ -30,7 +30,7 @@ const { title, description, imageUrl, pubDate, link, featured } = project;
         </svg>
       </div>
       
-      <p class="text-foreground/80 leading-relaxed line-clamp-3">
+      <p class="text-foreground/80 text-xs leading-relaxed line-clamp-3">
         {description}
       </p>
       

@@ -91,13 +91,56 @@ const featuredProjects = projects.filter(proj => proj.featured === true);
     </div>
 
     <!-- // BEST PROJECTS POSTS (TODO finish) -->
-    <section class="pt-12 pb-6">
+<section class="pt-12 pb-6">
+  <h2 class="text-3xl font-semibold tracking-wide">I loved working on</h2>
+  
+  <div class="relative max-w-7xl mx-auto px-8 py-8">
+    <!-- Carousel Container -->
+    <div class="overflow-hidden">
+      <div 
+        id="carousel" 
+        class="flex transition-transform duration-500 ease-in-out"
+      >
+        {featuredProjects.map(project => (
+          <div class="min-w-full md:min-w-[50%] lg:min-w-[33.333%] px-3">
+            <ProjCard {project} />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <button
+      id="prevBtn"
+      class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      aria-label="Previous"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <button
+      id="nextBtn"
+      class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      aria-label="Next"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <!-- Dots Indicator -->
+    <div id="dots" class="flex justify-center gap-2 mt-6"></div>
+  </div>
+</section>
+    <!-- <section class="pt-12 pb-6">
       <h2 class="text-3xl font-semibold tracking-wide">I loved working on </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
         {featuredProjects.map(project => <ProjCard {project} />)}
       </div>
 
-    </section>
+    </section> -->
 
     <div class="my-8 text-center">
       <LinkButton href="/projects/">
@@ -119,4 +162,69 @@ const featuredProjects = projects.filter(proj => proj.featured === true);
       sessionStorage.setItem("backUrl", "/");
     }
   });
+
+  // carousel
+  let currentIndex = 0;
+  let itemsPerView = 1;
+
+  const carousel = document.getElementById('carousel') as HTMLElement;
+  const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement;
+  const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement;
+  const dotsContainer = document.getElementById('dots') as HTMLElement;
+
+  function getItemsPerView() {
+    if (window.innerWidth >= 1024) return 3; // lg
+    if (window.innerWidth >= 768) return 2; // md
+    return 1;
+  }
+
+  function updateCarousel() {
+    itemsPerView = getItemsPerView();
+    const totalItems = carousel.children.length;
+    const maxIndex = Math.ceil(totalItems / itemsPerView) - 1;
+    
+    currentIndex = Math.min(currentIndex, maxIndex);
+    
+    const offset = -(currentIndex * 100);
+    carousel.style.transform = `translateX(${offset}%)`;
+    
+    // Update buttons
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === maxIndex;
+    
+    updateDots(maxIndex + 1);
+  }
+
+  function updateDots(total: number) {
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('button');
+      dot.className = `w-2 h-2 rounded-full transition-all ${
+        i === currentIndex ? 'bg-gray-800 w-8' : 'bg-gray-300'
+      }`;
+      dot.onclick = () => {
+        currentIndex = i;
+        updateCarousel();
+      };
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const maxIndex = Math.ceil(carousel.children.length / itemsPerView) - 1;
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updateCarousel();
+    }
+  });
+
+  window.addEventListener('resize', updateCarousel);
+  updateCarousel();
 </script>
