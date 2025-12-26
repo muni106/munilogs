@@ -5,13 +5,6 @@ import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
 import jokes from "@/data/404jokes.json"
-
-function getRandom(): number {
-  return Math.floor(Math.random() * jokes.length)
-}
-
-const current404Joke = jokes[getRandom()]
-
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
@@ -25,7 +18,7 @@ const current404Joke = jokes[getRandom()]
       <h1 class="text-9xl font-bold text-accent">404</h1>
       <span aria-hidden="true">¯\_(ツ)_/¯</span>
       <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
-      <p>{current404Joke}</p>
+      <p id="random-joke"></p>
       <LinkButton
         href="/"
         class="my-6 text-lg underline decoration-dashed underline-offset-8"
@@ -37,3 +30,8 @@ const current404Joke = jokes[getRandom()]
 
   <Footer />
 </Layout>
+
+<script define:vars={{jokes}}>
+  const randomJoke = jokes[Math.floor(Math.random() * jokes.length)]
+  document.getElementById("random-joke").textContent = randomJoke
+</script>
