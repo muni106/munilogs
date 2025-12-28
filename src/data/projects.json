@@ -1,114 +1,51 @@
 [
     {
-        "title": "proj name",
-        "description": "This is a brief project description",
-        "imageUrl": "/projects/conc_S4M.png",
+        "title": "Linux package caching system",
+        "description": "Secure Linux package caching system to reduce bandwidth consumption.",
+        "imageUrl": "/projects/linux-cacher.png",
         "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials",
-        "featured": true
+        "link": "https://github.com/muni106/linux-caching-system",
+        "featured": true 
     },
     {
-        "title": "proj name",
-        "description": "This is a brief project description",
-        "imageUrl": "/projects/conc_S4M.png",
+        "title": "Scalcetto",
+        "description": "Football simulation system, made with pure functional programming.",
+        "imageUrl": "/projects/scalcetto.png",
         "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials",
-        "featured": true
+        "link": "https://github.com/TommasoBrini/PPS-24-SCALcetto",
+        "featured": true 
     },
     {
-        "title": "proj name",
-        "description": "This is a brief project description",
-        "imageUrl": "/projects/conc_S4M.png",
+        "title": "FOOL",
+        "description": "Language with a compiler that supports Object-oriented programming",
+        "imageUrl": "/projects/fool.png",
         "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials",
-        "featured": true
-    },
-    {
-        "title": "proj name",
-        "description": "This is a brief project description",
-        "imageUrl": "/projects/conc_S4M.png",
-        "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials",
-        "featured": true
-    },
-    {
-        "title": "proj name",
-        "description": "This is a brief project description",
-        "imageUrl": "/projects/conc_S4M.png",
-        "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials",
-        "featured": true
-    },
-    {
-        "title": "proj name",
-        "description": "This is a brief project description",
-        "imageUrl": "/projects/conc_S4M.png",
-        "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials",
-        "featured": true
-    },
-    {
-        "title": "proj name",
-        "description": "This is a brief project description",
-        "imageUrl": "/projects/conc_S4M.png",
-        "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials",
-        "featured": true
-    },
-    {
-        "title": "proj name",
-        "description": "This is a brief project description",
-        "imageUrl": "/projects/conc_S4M.png",
-        "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials",
-        "featured": true
-    },
-    {
-        "title": "proj name",
-        "description": "This is a brief project description",
-        "imageUrl": "/projects/conc_S4M.png",
-        "pubDate": "2025-12-24",
-        "link": "https://www.rabbitmq.com/tutorials",
-        "featured": true
-    },
-    {
-        "title": "proj name2",
-        "description": "This is a brief project description2",
-        "imageUrl": "/projects/logical_S4M.png",
-        "pubDate": "2025-12-24",
-        "link": "google.com",
+        "link": "https://github.com/muni106/fool-compiler",
         "featured": false
     },
     {
-        "title": "proj name2",
-        "description": "This is a brief project description2",
-        "imageUrl": "/projects/logical_S4M.png",
+        "title": "SMOL",
+        "description": "Smash the mole game made from scratch using object orientation",
+        "imageUrl": "/projects/smol.png",
         "pubDate": "2025-12-24",
-        "link": "google.com",
+        "link": "https://github.com/ferriforty/OOP22-SMOL",
         "featured": false
     },
     {
-        "title": "proj name2",
-        "description": "This is a brief project description2",
-        "imageUrl": "/projects/logical_S4M.png",
+        "title": "social4musicians",
+        "description": "Social network made for musicians",
+        "imageUrl": "/projects/social4musicians.png",
         "pubDate": "2025-12-24",
-        "link": "google.com",
+        "link": "https://github.com/muni106/social4musicians",
         "featured": false
     },
     {
-        "title": "proj name2",
-        "description": "This is a brief project description2",
-        "imageUrl": "/projects/logical_S4M.png",
+        "title": "pgWatch",
+        "description": "postgreSQL monitoring tool",
+        "imageUrl": "/projects/pgwatch.jpeg",
         "pubDate": "2025-12-24",
-        "link": "google.com",
-        "featured": false
-    },
-    {
-        "title": "proj name2",
-        "description": "This is a brief project description2",
-        "imageUrl": "/projects/logical_S4M.png",
-        "pubDate": "2025-12-24",
-        "link": "google.com",
-        "featured": false
+        "link": "https://github.com/cybertec-postgresql/pgwatch",
+        "featured": true 
     }
+
 ]
