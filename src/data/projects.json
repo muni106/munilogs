@@ -46,6 +46,21 @@
         "pubDate": "2024-05-18",
         "link": "https://github.com/cybertec-postgresql/pgwatch",
         "featured": true 
+    },
+    {
+        "title": "ConcurrentFindTheWord",
+        "description": "A comprehensive comparison of 6 different concurrency approaches in Java for searching words across thousands of PDF files.",
+        "imageUrl": "/projects/ConcurrentFindTheWord.jpeg",
+        "pubDate": "2025-11-18",
+        "link": "https://github.com/muni106/ConcurrentFindTheWord",
+        "featured": false
+    },
+    {
+        "title": "PixelArtOnline",
+        "description": "Distributed version of the pixel art game",
+        "imageUrl": "/projects/pixelArtOnline.png",
+        "pubDate": "2026-01-16",
+        "link": "https://github.com/muni106/PixelArtOnline",
+        "featured": true 
     }
-
 ]
