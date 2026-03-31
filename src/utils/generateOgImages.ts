@@ -19,6 +19,13 @@ export async function generateOgImageForProj(post: CollectionEntry<"projects">) 
   return svgBufferToPngBuffer(svg);
 }
 
+export async function generateOgImageForNote(
+  note: CollectionEntry<"notes">
+) {
+  const svg = await postOgImage(note);
+  return svgBufferToPngBuffer(svg);
+}
+
 export async function generateOgImageForSite() {
   const svg = await siteOgImage();
   return svgBufferToPngBuffer(svg);

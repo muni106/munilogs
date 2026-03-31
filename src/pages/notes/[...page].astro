@@ -1,0 +1,32 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import NoteCard from "@/components/NoteCard.astro";
+import Pagination from "@/components/Pagination.astro";
+import getSortedNotes from "@/utils/getSortedNotes";
+import { SITE } from "@/config";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const notes = await getCollection("notes", ({ data }) => !data.draft);
+  return paginate(getSortedNotes(notes), { pageSize: SITE.postPerPage });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<Layout title={`Notes | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Notes" pageDesc="Quick thoughts, snippets, and things worth remembering.">
+    <ul>
+      {page.data.map(data => <NoteCard {...data} />)}
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>
