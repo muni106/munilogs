@@ -7,33 +7,21 @@
 
 :root,
 html[data-theme="light"] {
-  /* Tailwind Slate 50 */
-  --background: #f8fafc;      
-  /* Tailwind Slate 900 */
-  --foreground: #0f172a;      
-  /* Tailwind Slate 950 (Deep for hierarchy) */
-  --headings: #020617;        
-  /* Tailwind Indigo 600 */
-  --accent: #4f46e5;          
-  /* Tailwind Slate 100 */
-  --muted: #f1f5f9;            
-  /* Tailwind Slate 200 */
-  --border: #e2e8f0;      
+  --background: #f5f5f0;
+  --foreground: #1a1a1a;
+  --headings: #0d0d0d;
+  --accent: #4a7a2e;
+  --muted: #e8e8e0;
+  --border: #d4d4cc;
 }
 
 html[data-theme="dark"] {
-  /* Tailwind Slate 950 */
-  --background: #020617;      
-  /* Tailwind Slate 100 */
-  --foreground: #f1f5f9;      
-  /* Tailwind Slate 50 */
-  --headings: #f8fafc;        
-  /* Tailwind Indigo 400 */
-  --accent: #818cf8;          
-  /* Tailwind Slate 800 */
-  --muted: #1e293b;            
-  /* Tailwind Slate 700 */
-  --border: #334155;      
+  --background: #0d0d0d;
+  --foreground: #e0e0e0;
+  --headings: #ffffff;
+  --accent: #c8f04a;
+  --muted: #1a1a1a;
+  --border: #2a2a2a;
 }
 
 @theme inline {
@@ -59,8 +47,9 @@ html[data-theme="dark"] {
 
   body {
     font-family: 'Inter Variable', sans-serif;
-    font-weight: 300;
-    font-size: 115%;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.7;
     font-style: normal;
   }
 
@@ -86,6 +75,13 @@ html[data-theme="dark"] {
   @apply underline decoration-wavy decoration-2 underline-offset-4;
 }
 
+.label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 /* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
 /* Anything that has been anchored to should have extra scroll margin */
 :target {
@@ -93,15 +89,12 @@ html[data-theme="dark"] {
 }
 
 
-h1, h2 {
+h1, h2, h3, h4, h5, h6 {
   color: var(--headings);
-}
-h2 {
-  opacity: 0.8;
-}
-
-h3 {
-  opacity: 0.7;
+  font-family: 'Inter Variable', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
 code {
