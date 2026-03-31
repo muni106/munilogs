@@ -48,7 +48,7 @@ html[data-theme="dark"] {
   body {
     font-family: 'Inter Variable', sans-serif;
     font-weight: 400;
-    font-size: 17px;
+    font-size: 15px;
     line-height: 1.7;
     font-style: normal;
   }
@@ -68,11 +68,17 @@ html[data-theme="dark"] {
 }
 
 @utility max-w-app {
-  @apply max-w-5xl;
+  @apply max-w-3xl;
 }
 
 .active-nav {
   @apply underline decoration-wavy decoration-2 underline-offset-4;
+}
+
+.nav-active {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 2px;
 }
 
 .label {

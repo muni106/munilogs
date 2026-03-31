@@ -1,0 +1,618 @@
+---
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Layout from "@/layouts/Layout.astro";
+import { SITE } from "@/config";
+import { Image } from "astro:assets";
+import prof2 from "@/assets/images/prof2.jpeg";
+
+const skills = [
+  { name: "Systems Architecture", level: 92 },
+  { name: "Virtualization", level: 88 },
+  { name: "Infrastructure", level: 85 },
+  { name: "Low-Level Engineering", level: 80 },
+  { name: "Problem Solving", level: 95 },
+  { name: "Philosophy", level: 70 },
+];
+---
+
+<Layout title={`About | ${SITE.title}`}>
+  <Header />
+  <main id="main-content" class="hud-main">
+
+    <!-- Scanline overlay -->
+    <div class="hud-scanlines" aria-hidden="true"></div>
+
+    <!-- ========== TOP: Identity Ring + Briefing ========== -->
+    <section class="hud-section hud-hero fade-in">
+
+      <!-- Arc ring around avatar -->
+      <div class="hud-ring-wrap">
+        <svg class="hud-ring" viewBox="0 0 200 200" aria-hidden="true">
+          <!-- Outer rotating ring -->
+          <circle cx="100" cy="100" r="96" class="ring ring--outer" />
+          <!-- Middle dashed ring -->
+          <circle cx="100" cy="100" r="88" class="ring ring--mid" />
+          <!-- Inner arc meter -->
+          <circle cx="100" cy="100" r="80" class="ring ring--inner" />
+          <!-- Tick marks -->
+          {Array.from({ length: 36 }).map((_, i) => {
+            const angle = (i * 10 * Math.PI) / 180;
+            const x1 = 100 + 75 * Math.cos(angle);
+            const y1 = 100 + 75 * Math.sin(angle);
+            const x2 = 100 + 72 * Math.cos(angle);
+            const y2 = 100 + 72 * Math.sin(angle);
+            return <line x1={x1} y1={y1} x2={x2} y2={y2} class="ring-tick" />;
+          })}
+          <!-- Corner brackets -->
+          <path d="M 30 10 L 10 10 L 10 30" class="ring-bracket" />
+          <path d="M 170 10 L 190 10 L 190 30" class="ring-bracket" />
+          <path d="M 30 190 L 10 190 L 10 170" class="ring-bracket" />
+          <path d="M 170 190 L 190 190 L 190 170" class="ring-bracket" />
+        </svg>
+        <div class="hud-avatar-wrap">
+          <Image
+            src={prof2}
+            alt="Profile Photo"
+            width={120}
+            height={120}
+            class="hud-avatar"
+          />
+        </div>
+        <!-- Status readout below ring -->
+        <div class="hud-status">
+          <span class="hud-status__dot"></span>
+          <span class="label">ONLINE</span>
+        </div>
+      </div>
+
+      <!-- Tactical briefing -->
+      <div class="hud-briefing">
+        <div class="hud-tag label">// SUBJECT PROFILE</div>
+        <h1 class="hud-name">Mounir Samite</h1>
+        <div class="hud-subtitle label">Computer Science &mdash; Universit&agrave; di Bologna, Cesena</div>
+
+        <div class="hud-divider" aria-hidden="true">
+          <span class="hud-divider__line"></span>
+          <span class="hud-divider__diamond"></span>
+          <span class="hud-divider__line"></span>
+        </div>
+
+        <div class="hud-bio" id="hud-bio">
+          <canvas id="bio-canvas" class="bio-canvas"></canvas>
+          <noscript>
+            <p>I'm not a "ui guy" — I don't care how a button looks. I care about what happens in the milliseconds after you click it.</p>
+            <p>My head is usually buried in virtualization, systems architecture, and infrastructures — the invisible parts of tech that keep the world running.</p>
+          </noscript>
+          <div id="bio-fallback" class="bio-fallback hidden">
+            <p>I'm not a "ui guy" — I don't care how a button looks. I care about what happens in the milliseconds after you click it.</p>
+            <p>My head is usually buried in virtualization, systems architecture, and infrastructures — the invisible parts of tech that keep the world running.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== MID: Skill Gauges ========== -->
+    <section class="hud-section fade-in">
+      <div class="hud-tag label">// CAPABILITY ASSESSMENT</div>
+      <div class="hud-gauges">
+        {skills.map(({ name, level }) => (
+          <div class="gauge" data-level={level}>
+            <div class="gauge__header">
+              <span class="gauge__name label">{name}</span>
+              <span class="gauge__pct">{level}%</span>
+            </div>
+            <div class="gauge__track">
+              <div class="gauge__fill" style={`--level: ${level}%`}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ========== BOTTOM: Values + Contact ========== -->
+    <div class="hud-bottom-grid">
+
+      <!-- Values panel -->
+      <section class="hud-panel fade-in">
+        <div class="hud-panel__corner hud-panel__corner--tl" aria-hidden="true"></div>
+        <div class="hud-panel__corner hud-panel__corner--tr" aria-hidden="true"></div>
+        <div class="hud-panel__corner hud-panel__corner--bl" aria-hidden="true"></div>
+        <div class="hud-panel__corner hud-panel__corner--br" aria-hidden="true"></div>
+        <div class="hud-tag label">// CORE DIRECTIVES</div>
+        <ul class="hud-values">
+          <li><span class="hud-bullet" aria-hidden="true"></span>Break things. Rebuild them faster.</li>
+          <li><span class="hud-bullet" aria-hidden="true"></span>Clean architecture. Direct conversations.</li>
+          <li><span class="hud-bullet" aria-hidden="true"></span>Philosophy for clarity. Innovation for momentum.</li>
+          <li><span class="hud-bullet" aria-hidden="true"></span><em>Mente sana in corpore sano.</em></li>
+        </ul>
+      </section>
+
+      <!-- Contact panel -->
+      <section class="hud-panel fade-in">
+        <div class="hud-panel__corner hud-panel__corner--tl" aria-hidden="true"></div>
+        <div class="hud-panel__corner hud-panel__corner--tr" aria-hidden="true"></div>
+        <div class="hud-panel__corner hud-panel__corner--bl" aria-hidden="true"></div>
+        <div class="hud-panel__corner hud-panel__corner--br" aria-hidden="true"></div>
+        <div class="hud-tag label">// COMM CHANNELS</div>
+        <div class="hud-links">
+          <a href="https://www.linkedin.com/in/mounir-samite-346b7323a/" target="_blank" rel="noopener noreferrer" class="hud-link">
+            <span class="hud-link__icon" aria-hidden="true">&#x25C8;</span>
+            <span class="label">LinkedIn</span>
+            <span class="hud-link__arrow">&rarr;</span>
+          </a>
+          <a href="mailto:mounir.samite@gmail.com" class="hud-link">
+            <span class="hud-link__icon" aria-hidden="true">&#x25C8;</span>
+            <span class="label">E-mail</span>
+            <span class="hud-link__arrow">&rarr;</span>
+          </a>
+          <a href="https://github.com/muni106" target="_blank" rel="noopener noreferrer" class="hud-link">
+            <span class="hud-link__icon" aria-hidden="true">&#x25C8;</span>
+            <span class="label">GitHub</span>
+            <span class="hud-link__arrow">&rarr;</span>
+          </a>
+        </div>
+      </section>
+    </div>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* ===== Foundations ===== */
+  .hud-main {
+    position: relative;
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 3rem 1rem 6rem;
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow: hidden;
+  }
+
+  /* CRT scanlines */
+  .hud-scanlines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    background: repeating-linear-gradient(
+      transparent 0px,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+  }
+
+  /* Sections */
+  .hud-section {
+    margin-bottom: 3rem;
+  }
+
+  .hud-tag {
+    color: var(--accent);
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  /* Fade-in on scroll */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== Hero: ring + briefing ===== */
+  .hud-hero {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+  }
+
+  /* Ring assembly */
+  .hud-ring-wrap {
+    position: relative;
+    flex-shrink: 0;
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hud-ring {
+    width: 160px;
+    height: 160px;
+  }
+  .ring {
+    fill: none;
+    stroke-width: 1;
+  }
+  .ring--outer {
+    stroke: var(--accent);
+    opacity: 0.2;
+    stroke-dasharray: 4 8;
+    animation: spin-slow 30s linear infinite;
+    transform-origin: center;
+  }
+  .ring--mid {
+    stroke: var(--accent);
+    opacity: 0.35;
+    stroke-dasharray: 1 6;
+    animation: spin-slow 20s linear infinite reverse;
+    transform-origin: center;
+  }
+  .ring--inner {
+    stroke: var(--accent);
+    opacity: 0.6;
+    stroke-dasharray: 180 503;
+    stroke-dashoffset: -60;
+    stroke-linecap: round;
+    animation: arc-pulse 4s ease-in-out infinite;
+    transform-origin: center;
+  }
+  .ring-tick {
+    stroke: var(--accent);
+    stroke-width: 0.8;
+    opacity: 0.25;
+  }
+  .ring-bracket {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    opacity: 0.4;
+  }
+
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes arc-pulse {
+    0%, 100% { stroke-dashoffset: -60; opacity: 0.6; }
+    50% { stroke-dashoffset: -120; opacity: 0.9; }
+  }
+
+  /* Avatar inside ring */
+  .hud-avatar-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% - 10px));
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1.5px solid var(--accent);
+    box-shadow:
+      0 0 20px color-mix(in srgb, var(--accent) 15%, transparent),
+      inset 0 0 15px color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+  .hud-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none !important;
+  }
+
+  /* Status readout */
+  .hud-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .hud-status__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Briefing text */
+  .hud-briefing {
+    flex: 1;
+    min-width: 0;
+  }
+  .hud-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--foreground);
+    margin: 0 0 4px;
+  }
+  .hud-subtitle {
+    color: color-mix(in srgb, var(--foreground) 50%, transparent);
+    margin-bottom: 1rem;
+  }
+
+  /* Decorative divider */
+  .hud-divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+  .hud-divider__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    opacity: 0.3;
+  }
+  .hud-divider__line:last-child {
+    background: linear-gradient(to left, var(--accent), transparent);
+  }
+  .hud-divider__diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  /* Bio */
+  .hud-bio {
+    color: color-mix(in srgb, var(--foreground) 75%, transparent);
+  }
+  .bio-canvas {
+    display: block;
+    max-width: 100%;
+  }
+  .bio-fallback {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ===== Skill gauges ===== */
+  .hud-gauges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+  }
+  .gauge__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+  .gauge__name {
+    color: var(--foreground);
+  }
+  .gauge__pct {
+    font-size: 11px;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .gauge__track {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .gauge__fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 60%, white));
+    border-radius: 2px;
+    box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 40%, transparent);
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .gauge.animated .gauge__fill {
+    width: var(--level);
+  }
+
+  /* ===== Bottom grid ===== */
+  .hud-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* Panel with corner brackets */
+  .hud-panel {
+    position: relative;
+    border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+    padding: 20px;
+    background: color-mix(in srgb, var(--accent) 2%, transparent);
+  }
+  .hud-panel__corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: var(--accent);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .hud-panel__corner--tl { top: -1px; left: -1px; border-width: 1.5px 0 0 1.5px; }
+  .hud-panel__corner--tr { top: -1px; right: -1px; border-width: 1.5px 1.5px 0 0; }
+  .hud-panel__corner--bl { bottom: -1px; left: -1px; border-width: 0 0 1.5px 1.5px; }
+  .hud-panel__corner--br { bottom: -1px; right: -1px; border-width: 0 1.5px 1.5px 0; }
+
+  /* Values */
+  .hud-values {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hud-values li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: color-mix(in srgb, var(--foreground) 75%, transparent);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .hud-bullet {
+    flex-shrink: 0;
+    width: 4px;
+    height: 4px;
+    margin-top: 6px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    box-shadow: 0 0 4px var(--accent);
+  }
+
+  /* Contact links */
+  .hud-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hud-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--foreground);
+    transition: all 0.25s;
+  }
+  .hud-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  .hud-link__icon {
+    color: var(--accent);
+    font-size: 10px;
+    opacity: 0.6;
+  }
+  .hud-link__arrow {
+    margin-left: auto;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.25s;
+  }
+  .hud-link:hover .hud-link__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .hud-hero {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .hud-gauges {
+      grid-template-columns: 1fr;
+    }
+    .hud-bottom-grid {
+      grid-template-columns: 1fr;
+    }
+    .hud-name {
+      font-size: 1.4rem;
+    }
+    .hud-divider__line:last-child {
+      background: linear-gradient(to right, transparent, var(--accent));
+    }
+  }
+</style>
+
+<script>
+  import { prepareWithSegments, layoutWithLines } from '@chenglou/pretext';
+
+  document.addEventListener('astro:page-load', () => {
+    // ===== Intersection observer for fade-ins and gauge animations =====
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Animate gauges when their section appears
+          if (entry.target.querySelector('.hud-gauges')) {
+            entry.target.querySelectorAll('.gauge').forEach((g, i) => {
+              setTimeout(() => g.classList.add('animated'), i * 120);
+            });
+          }
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ===== Bio canvas via pretext =====
+    renderBio();
+
+    function renderBio() {
+      const canvas = document.getElementById('bio-canvas') as HTMLCanvasElement | null;
+      const fallback = document.getElementById('bio-fallback');
+      if (!canvas) { fallback?.classList.remove('hidden'); return; }
+
+      try {
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error('no ctx');
+
+        const dpr = window.devicePixelRatio || 1;
+        const container = canvas.parentElement;
+        const maxWidth = (container?.clientWidth || 400);
+        const font = '13px "JetBrains Mono Variable", monospace';
+        const lh = 21;
+
+        const paragraphs = [
+          "I'm not a \"ui guy\" — I don't care how a button looks. I care about what happens in the milliseconds after you click it.",
+          "",
+          "My head is usually buried in virtualization, systems architecture, and infrastructures — the invisible parts of tech that keep the world running.",
+        ];
+
+        const laid: Array<{ text: string; width: number }> = [];
+        for (const p of paragraphs) {
+          if (p === '') { laid.push({ text: '', width: 0 }); continue; }
+          const prepared = prepareWithSegments(p, font);
+          const result = layoutWithLines(prepared, maxWidth, lh);
+          for (const l of result.lines) laid.push({ text: l.text, width: l.width });
+        }
+
+        const h = laid.length * lh + 4;
+        canvas.width = maxWidth * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = `${maxWidth}px`;
+        canvas.style.height = `${h}px`;
+        ctx.scale(dpr, dpr);
+
+        const s = getComputedStyle(document.documentElement);
+        const fg = s.getPropertyValue('--foreground').trim();
+        const acc = s.getPropertyValue('--accent').trim();
+
+        ctx.font = font;
+        ctx.textBaseline = 'top';
+
+        laid.forEach((line, i) => {
+          if (!line.text) return;
+          const y = i * lh + 2;
+          ctx.fillStyle = fg;
+          ctx.globalAlpha = 0.78;
+          ctx.fillText(line.text, 0, y);
+          // Accent ghost characters
+          ctx.fillStyle = acc;
+          ctx.globalAlpha = 0.08;
+          for (let c = 0; c < line.text.length; c++) {
+            if (Math.random() < 0.04) {
+              const w = ctx.measureText(line.text.substring(0, c)).width;
+              ctx.fillText(line.text[c], w, y - 1);
+            }
+          }
+          ctx.globalAlpha = 1;
+        });
+      } catch {
+        fallback?.classList.remove('hidden');
+      }
+    }
+  });
+</script>
