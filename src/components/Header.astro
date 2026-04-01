@@ -26,78 +26,72 @@ const navLinks = [
 ];
 ---
 
-<header
-  class="sticky top-0 z-40 w-full border-b border-border/50 bg-background/95 backdrop-blur-md"
->
+<header id="cp-header" class="cp-header">
   <a
     id="skip-to-content"
     href="#main-content"
-    class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent transition-all focus:top-4"
+    class="absolute start-16 -top-full z-50 px-3 py-2 text-accent transition-all focus:top-4"
   >
     Skip to content
   </a>
 
-  <div class="mx-auto flex h-14 max-w-app items-center justify-between px-4">
-    <!-- Logo / left -->
-    <a
-      href="/"
-      class="shrink-0 text-lg font-bold tracking-tight text-foreground hover:text-accent"
-    >
-      {SITE.title}
+  <!-- Top accent line -->
+  <div class="cp-header__accent-line" aria-hidden="true"></div>
+
+  <div class="cp-header__inner">
+    <!-- Logo -->
+    <a href="/" class="cp-logo">
+      <span class="cp-logo__text">{SITE.title}</span>
+      <span class="cp-logo__slash" aria-hidden="true">//</span>
     </a>
 
-    <!-- Center nav links (desktop) -->
-    <nav class="hidden sm:flex sm:items-center sm:gap-6" aria-label="Main">
+    <!-- Desktop nav -->
+    <nav class="cp-nav" aria-label="Main">
       {navLinks.map(({ href, label }) => (
         <a
           href={href}
-          class:list={[
-            "label py-1 transition-colors hover:text-accent",
-            isActive(href) ? "nav-active" : "text-foreground/70",
-          ]}
+          class:list={["cp-nav__link", { "cp-nav__link--active": isActive(href) }]}
+          data-text={label}
         >
-          {label}
+          <span class="cp-nav__label">{label}</span>
         </a>
       ))}
     </nav>
 
-    <!-- Right side: search + theme + mobile menu -->
-    <div class="flex items-center gap-2">
+    <!-- Right actions -->
+    <div class="cp-actions">
       <a
         href="/search"
-        class:list={[
-          "flex items-center p-2 text-foreground/70 transition-colors hover:text-accent",
-          { "text-accent": isActive("/search") },
-        ]}
+        class:list={["cp-action-btn", { "cp-action-btn--active": isActive("/search") }]}
         aria-label="Search"
         title="Search"
       >
-        <IconSearch class="size-[18px]" />
+        <IconSearch class="cp-action-btn__icon" />
       </a>
 
       {SITE.lightAndDarkMode && (
         <button
           id="theme-btn"
-          class="relative flex size-9 items-center justify-center text-foreground/70 transition-colors hover:text-accent"
+          class="cp-action-btn"
           title="Toggles light & dark"
           aria-label="auto"
           aria-live="polite"
         >
-          <IconMoon class="absolute size-[18px] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <IconSunHigh class="absolute size-[18px] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+          <IconMoon class="cp-action-btn__icon absolute scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+          <IconSunHigh class="cp-action-btn__icon absolute scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
         </button>
       )}
 
       <!-- Mobile hamburger -->
       <button
         id="menu-btn"
-        class="flex items-center p-2 text-foreground/70 transition-colors hover:text-accent sm:hidden"
+        class="cp-action-btn cp-burger"
         aria-label="Open Menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
       >
-        <IconX id="close-icon" class="hidden size-5" />
-        <IconMenuDeep id="menu-icon" class="size-5" />
+        <IconX id="close-icon" class="cp-action-btn__icon hidden" />
+        <IconMenuDeep id="menu-icon" class="cp-action-btn__icon" />
       </button>
     </div>
   </div>
@@ -105,48 +99,332 @@ const navLinks = [
   <!-- Mobile menu -->
   <nav
     id="mobile-menu"
-    class="hidden border-t border-border/50 bg-background px-4 pb-4 sm:hidden"
+    class="cp-mobile hidden"
     aria-label="Mobile"
   >
-    <ul class="flex flex-col gap-1 pt-2">
+    <ul class="cp-mobile__list">
       {navLinks.map(({ href, label }) => (
         <li>
           <a
             href={href}
-            class:list={[
-              "label block py-2 transition-colors hover:text-accent",
-              isActive(href) ? "nav-active" : "text-foreground/70",
-            ]}
+            class:list={["cp-mobile__link", { "cp-mobile__link--active": isActive(href) }]}
+            data-text={label}
           >
+            <span class="cp-mobile__chevron" aria-hidden="true">&#x25B8;</span>
             {label}
           </a>
         </li>
       ))}
     </ul>
   </nav>
+
+  <!-- Bottom edge cut -->
+  <div class="cp-header__edge" aria-hidden="true"></div>
 </header>
 
+<style>
+  /* ===== Cyberpunk color tokens (scoped) ===== */
+  .cp-header {
+    --cp-yellow: #f7e44d;
+    --cp-black: #0a0a0a;
+    --cp-dark: #111118;
+    --cp-light: #e8e8e8;
+    --cp-red: #e8003f;
+    --cp-scrolled-bg: color-mix(in srgb, var(--cp-dark) 92%, transparent);
+
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    width: 100%;
+    transition: background-color 0.3s, backdrop-filter 0.3s;
+  }
+
+  :global(html:not([data-theme="dark"])) .cp-header {
+    --cp-yellow: #d4a017;
+    --cp-black: #ffffff;
+    --cp-dark: #f0f0eb;
+    --cp-light: #1a1a2e;
+    --cp-red: #c2003a;
+    --cp-scrolled-bg: color-mix(in srgb, var(--cp-dark) 95%, transparent);
+  }
+
+  /* Transparent at top */
+  .cp-header:not(.scrolled) {
+    background: transparent;
+  }
+
+  /* Solid + blur when scrolled */
+  .cp-header.scrolled {
+    background: var(--cp-scrolled-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Top accent line */
+  .cp-header__accent-line {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--cp-yellow) 15%,
+      var(--cp-yellow) 50%,
+      var(--cp-red) 85%,
+      transparent 100%
+    );
+    opacity: 0.8;
+  }
+
+  /* Bottom angled cut edge */
+  .cp-header__edge {
+    height: 6px;
+    background: color-mix(in srgb, var(--cp-dark) 80%, var(--cp-yellow));
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 94% 0%, 0 0);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .cp-header.scrolled .cp-header__edge {
+    opacity: 0.7;
+  }
+
+  /* Inner layout */
+  .cp-header__inner {
+    max-width: 48rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    height: 52px;
+  }
+
+  /* ===== Logo ===== */
+  .cp-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .cp-logo:hover {
+    opacity: 0.8;
+  }
+  .cp-logo__text {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--cp-yellow);
+  }
+  .cp-logo__slash {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--cp-red);
+    opacity: 0.7;
+  }
+
+  /* ===== Desktop Nav ===== */
+  .cp-nav {
+    display: none;
+    align-items: center;
+    gap: 2px;
+  }
+  @media (min-width: 640px) {
+    .cp-nav { display: flex; }
+    .cp-burger { display: none !important; }
+  }
+
+  /* Nav link — the cyberpunk cut */
+  .cp-nav__link {
+    position: relative;
+    display: block;
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cp-light);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%);
+    transition: color 0.1s;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  /* Background fill on hover — sharp snap */
+  .cp-nav__link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--cp-yellow);
+    transform: translateY(100%);
+    transition: transform 0.12s cubic-bezier(0.7, 0, 0.3, 1);
+    z-index: -1;
+  }
+  .cp-nav__link:hover::before,
+  .cp-nav__link--active::before {
+    transform: translateY(0);
+  }
+  .cp-nav__link:hover,
+  .cp-nav__link--active {
+    color: var(--cp-black);
+  }
+
+  /* Glitch slice on hover */
+  .cp-nav__link::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 6px;
+    left: 14px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cp-red);
+    clip-path: inset(0 0 70% 0);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .cp-nav__link:hover::after {
+    animation: cp-glitch 0.3s steps(2) 1;
+  }
+
+  @keyframes cp-glitch {
+    0% { opacity: 1; transform: translate(2px, -1px); clip-path: inset(10% 0 60% 0); }
+    25% { opacity: 1; transform: translate(-2px, 1px); clip-path: inset(40% 0 20% 0); }
+    50% { opacity: 1; transform: translate(1px, 0); clip-path: inset(60% 0 10% 0); }
+    75% { opacity: 0; transform: translate(-1px, -1px); clip-path: inset(20% 0 50% 0); }
+    100% { opacity: 0; transform: translate(0); }
+  }
+
+  /* Active state — persistent yellow with red left edge */
+  .cp-nav__link--active {
+    box-shadow: inset 3px 0 0 var(--cp-red);
+  }
+
+  /* ===== Action buttons (search, theme, burger) ===== */
+  .cp-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .cp-action-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: var(--cp-light);
+    text-decoration: none;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%);
+    transition: color 0.1s, background-color 0.1s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .cp-action-btn:hover {
+    background: var(--cp-yellow);
+    color: var(--cp-black);
+  }
+  .cp-action-btn--active {
+    background: var(--cp-yellow);
+    color: var(--cp-black);
+  }
+  .cp-action-btn__icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ===== Mobile menu ===== */
+  .cp-mobile {
+    background: color-mix(in srgb, var(--cp-dark) 98%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--cp-yellow) 15%, transparent);
+    padding: 8px 1rem 16px;
+    backdrop-filter: blur(12px);
+  }
+  @media (min-width: 640px) {
+    .cp-mobile { display: none !important; }
+  }
+  .cp-mobile__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cp-mobile__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cp-light);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%);
+    transition: color 0.1s, background-color 0.1s;
+  }
+  .cp-mobile__link:hover,
+  .cp-mobile__link--active {
+    background: var(--cp-yellow);
+    color: var(--cp-black);
+  }
+  .cp-mobile__link--active {
+    box-shadow: inset 3px 0 0 var(--cp-red);
+  }
+  .cp-mobile__chevron {
+    font-size: 8px;
+    color: var(--cp-red);
+    opacity: 0.7;
+  }
+  .cp-mobile__link:hover .cp-mobile__chevron,
+  .cp-mobile__link--active .cp-mobile__chevron {
+    color: var(--cp-black);
+    opacity: 1;
+  }
+</style>
+
 <script>
-  function toggleNav() {
+  function initHeader() {
+    const header = document.getElementById('cp-header');
+    if (!header) return;
+
+    // Scroll detection for transparent → solid transition
+    const onScroll = () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu toggle
     const menuBtn = document.querySelector("#menu-btn");
     const mobileMenu = document.querySelector("#mobile-menu");
     const menuIcon = document.querySelector("#menu-icon");
     const closeIcon = document.querySelector("#close-icon");
 
-    if (!menuBtn || !mobileMenu || !menuIcon || !closeIcon) return;
-
-    menuBtn.addEventListener("click", () => {
-      const openMenu = menuBtn.getAttribute("aria-expanded") === "true";
-
-      menuBtn.setAttribute("aria-expanded", openMenu ? "false" : "true");
-      menuBtn.setAttribute("aria-label", openMenu ? "Open Menu" : "Close Menu");
-
-      mobileMenu.classList.toggle("hidden");
-      menuIcon.classList.toggle("hidden");
-      closeIcon.classList.toggle("hidden");
-    });
+    if (menuBtn && mobileMenu && menuIcon && closeIcon) {
+      menuBtn.addEventListener("click", () => {
+        const isOpen = menuBtn.getAttribute("aria-expanded") === "true";
+        menuBtn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+        menuBtn.setAttribute("aria-label", isOpen ? "Open Menu" : "Close Menu");
+        mobileMenu.classList.toggle("hidden");
+        menuIcon.classList.toggle("hidden");
+        closeIcon.classList.toggle("hidden");
+      });
+    }
   }
 
-  toggleNav();
-  document.addEventListener("astro:after-swap", toggleNav);
+  initHeader();
+  document.addEventListener("astro:after-swap", initHeader);
 </script>

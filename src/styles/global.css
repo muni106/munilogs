@@ -19,7 +19,7 @@ html[data-theme="dark"] {
   --background: #0a0a12;
   --foreground: #d0d0d8;
   --headings: #d0d0d8;
-  --accent: #c8f04a;
+  --accent: #00f0ff;
   --muted: #12121e;
   --border: #1e1e2e;
 }
@@ -73,12 +73,6 @@ html[data-theme="dark"] {
 
 .active-nav {
   @apply underline decoration-wavy decoration-2 underline-offset-4;
-}
-
-.nav-active {
-  color: var(--accent);
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 2px;
 }
 
 .label {
