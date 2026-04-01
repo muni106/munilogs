@@ -25,18 +25,7 @@
 
 ## What is this
 
-My personal website and blog. A place for writing about systems, infrastructure, philosophy, and whatever else sticks. Built with Astro, styled dark-first with a lime-on-black editorial palette, and topped with a JARVIS-inspired about page because why not.
-
-## Stack
-
-| Layer | Tech |
-|-------|------|
-| Framework | [Astro 5](https://astro.build) with static output |
-| Language | TypeScript (strict) |
-| Styling | Tailwind CSS 4, CSS custom properties |
-| Typography | Inter Variable (body), JetBrains Mono Variable (code) |
-| Search | [Pagefind](https://pagefind.app) — static search index at build time |
-| Content | Markdown via Astro Content Collections |
+My personal website and blog. A place for writing about systems, infrastructure, philosophy, and whatever else sticks. 
 
 ## Getting started
 
