@@ -78,16 +78,9 @@ const skills = [
           <span class="hud-divider__line"></span>
         </div>
 
-        <div class="hud-bio" id="hud-bio">
-          <canvas id="bio-canvas" class="bio-canvas"></canvas>
-          <noscript>
-            <p>I'm not a "ui guy" — I don't care how a button looks. I care about what happens in the milliseconds after you click it.</p>
-            <p>My head is usually buried in virtualization, systems architecture, and infrastructures — the invisible parts of tech that keep the world running.</p>
-          </noscript>
-          <div id="bio-fallback" class="bio-fallback hidden">
-            <p>I'm not a "ui guy" — I don't care how a button looks. I care about what happens in the milliseconds after you click it.</p>
-            <p>My head is usually buried in virtualization, systems architecture, and infrastructures — the invisible parts of tech that keep the world running.</p>
-          </div>
+        <div class="hud-bio">
+          <p>I'm not a "ui guy" — I don't care how a button looks. I care about what happens in the milliseconds after you click it.</p>
+          <p>My head is usually buried in virtualization, systems architecture, and infrastructures — the invisible parts of tech that keep the world running.</p>
         </div>
       </div>
     </section>
@@ -363,12 +356,6 @@ const skills = [
   /* Bio */
   .hud-bio {
     color: color-mix(in srgb, var(--foreground) 75%, transparent);
-  }
-  .bio-canvas {
-    display: block;
-    max-width: 100%;
-  }
-  .bio-fallback {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -526,15 +513,11 @@ const skills = [
 </style>
 
 <script>
-  import { prepareWithSegments, layoutWithLines } from '@chenglou/pretext';
-
   document.addEventListener('astro:page-load', () => {
-    // ===== Intersection observer for fade-ins and gauge animations =====
     const observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          // Animate gauges when their section appears
           if (entry.target.querySelector('.hud-gauges')) {
             entry.target.querySelectorAll('.gauge').forEach((g, i) => {
               setTimeout(() => g.classList.add('animated'), i * 120);
@@ -546,73 +529,5 @@ const skills = [
     }, { threshold: 0.15 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // ===== Bio canvas via pretext =====
-    renderBio();
-
-    function renderBio() {
-      const canvas = document.getElementById('bio-canvas') as HTMLCanvasElement | null;
-      const fallback = document.getElementById('bio-fallback');
-      if (!canvas) { fallback?.classList.remove('hidden'); return; }
-
-      try {
-        const ctx = canvas.getContext('2d');
-        if (!ctx) throw new Error('no ctx');
-
-        const dpr = window.devicePixelRatio || 1;
-        const container = canvas.parentElement;
-        const maxWidth = (container?.clientWidth || 400);
-        const font = '13px "JetBrains Mono Variable", monospace';
-        const lh = 21;
-
-        const paragraphs = [
-          "I'm not a \"ui guy\" — I don't care how a button looks. I care about what happens in the milliseconds after you click it.",
-          "",
-          "My head is usually buried in virtualization, systems architecture, and infrastructures — the invisible parts of tech that keep the world running.",
-        ];
-
-        const laid: Array<{ text: string; width: number }> = [];
-        for (const p of paragraphs) {
-          if (p === '') { laid.push({ text: '', width: 0 }); continue; }
-          const prepared = prepareWithSegments(p, font);
-          const result = layoutWithLines(prepared, maxWidth, lh);
-          for (const l of result.lines) laid.push({ text: l.text, width: l.width });
-        }
-
-        const h = laid.length * lh + 4;
-        canvas.width = maxWidth * dpr;
-        canvas.height = h * dpr;
-        canvas.style.width = `${maxWidth}px`;
-        canvas.style.height = `${h}px`;
-        ctx.scale(dpr, dpr);
-
-        const s = getComputedStyle(document.documentElement);
-        const fg = s.getPropertyValue('--foreground').trim();
-        const acc = s.getPropertyValue('--accent').trim();
-
-        ctx.font = font;
-        ctx.textBaseline = 'top';
-
-        laid.forEach((line, i) => {
-          if (!line.text) return;
-          const y = i * lh + 2;
-          ctx.fillStyle = fg;
-          ctx.globalAlpha = 0.78;
-          ctx.fillText(line.text, 0, y);
-          // Accent ghost characters
-          ctx.fillStyle = acc;
-          ctx.globalAlpha = 0.08;
-          for (let c = 0; c < line.text.length; c++) {
-            if (Math.random() < 0.04) {
-              const w = ctx.measureText(line.text.substring(0, c)).width;
-              ctx.fillText(line.text[c], w, y - 1);
-            }
-          }
-          ctx.globalAlpha = 1;
-        });
-      } catch {
-        fallback?.classList.remove('hidden');
-      }
-    }
   });
 </script>

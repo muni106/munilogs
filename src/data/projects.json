@@ -2,7 +2,7 @@
     {
         "title": "Linux package caching system",
         "description": "Secure Linux package caching system to reduce bandwidth consumption.",
-        "imageUrl": "/projects/linux-cacher.png",
+        "imageUrl": "/projects/linux-cacher.webp",
         "pubDate": "2024-09-12",
         "link": "https://github.com/muni106/linux-caching-system",
         "featured": true 
@@ -10,7 +10,7 @@
     {
         "title": "Scalcetto",
         "description": "Football simulation system, made with pure functional programming.",
-        "imageUrl": "/projects/scalcetto.png",
+        "imageUrl": "/projects/scalcetto.webp",
         "pubDate": "2025-07-13",
         "link": "https://github.com/TommasoBrini/PPS-24-SCALcetto",
         "featured": true 
@@ -18,7 +18,7 @@
     {
         "title": "FOOL",
         "description": "Language with a compiler that supports Object-oriented programming",
-        "imageUrl": "/projects/fool.png",
+        "imageUrl": "/projects/fool.webp",
         "pubDate": "2025-05-15",
         "link": "https://github.com/muni106/fool-compiler",
         "featured": false
@@ -26,7 +26,7 @@
     {
         "title": "SMOL",
         "description": "Smash the mole game made from scratch using object orientation",
-        "imageUrl": "/projects/smol.png",
+        "imageUrl": "/projects/smol.webp",
         "pubDate": "2023-04-08",
         "link": "https://github.com/ferriforty/OOP22-SMOL",
         "featured": false
@@ -34,7 +34,7 @@
     {
         "title": "social4musicians",
         "description": "Social network made for musicians",
-        "imageUrl": "/projects/social4musicians.png",
+        "imageUrl": "/projects/social4musicians.webp",
         "pubDate": "2022-10-24",
         "link": "https://github.com/muni106/social4musicians",
         "featured": false
@@ -42,7 +42,7 @@
     {
         "title": "pgWatch",
         "description": "postgreSQL monitoring tool",
-        "imageUrl": "/projects/pgwatch.jpeg",
+        "imageUrl": "/projects/pgwatch.webp",
         "pubDate": "2024-05-18",
         "link": "https://github.com/cybertec-postgresql/pgwatch",
         "featured": true 
@@ -50,7 +50,7 @@
     {
         "title": "ConcurrentFindTheWord",
         "description": "A comprehensive comparison of 6 different concurrency approaches in Java for searching words across thousands of PDF files.",
-        "imageUrl": "/projects/ConcurrentFindTheWord.jpeg",
+        "imageUrl": "/projects/ConcurrentFindTheWord.webp",
         "pubDate": "2025-11-18",
         "link": "https://github.com/muni106/ConcurrentFindTheWord",
         "featured": false
@@ -58,7 +58,7 @@
     {
         "title": "PixelArtOnline",
         "description": "Distributed version of the pixel art game",
-        "imageUrl": "/projects/pixelArtOnline.png",
+        "imageUrl": "/projects/pixelArtOnline.webp",
         "pubDate": "2026-01-16",
         "link": "https://github.com/muni106/PixelArtOnline",
         "featured": true 
