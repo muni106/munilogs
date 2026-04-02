@@ -5,7 +5,7 @@ export const SITE = {
   desc: "my personal chronicle of exploration, ideas, and continuous growth.",
   title: "Mounir Samite",
   ogImage: "ogImage.jpg",
-  logo: "favicon2.png",
+  logo: "logo.svg",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 10,
