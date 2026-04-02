@@ -46,7 +46,7 @@ Introduce dependency ranges -> testing all possible combination impossible -> lo
 
 
 # Checklist of things to do when working with gradle
-*generated with claude opus 4.6 from some my lecture notes*
+*generated with claude opus 4.6 from some of my lecture notes*
 ## 🏗️ Project Setup & Wrapper
 
 - [ ] **Create a `build.gradle.kts` in the project root** — Gradle treats the folder it's invoked in as a project; the file instructs it on the organization.
