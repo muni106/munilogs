@@ -4,7 +4,7 @@ export const SITE = {
   profile: "https://github.com/muni106",
   desc: "my personal chronicle of exploration, ideas, and continuous growth.",
   title: "Mounir Samite",
-  ogImage: "ogImage.jpg",
+  ogImage: "og-image.png",
   logo: "logo.svg",
   lightAndDarkMode: true,
   postPerIndex: 4,
