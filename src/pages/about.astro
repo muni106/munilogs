@@ -5,529 +5,237 @@ import Layout from "@/layouts/Layout.astro";
 import { SITE } from "@/config";
 import { Image } from "astro:assets";
 import prof2 from "@/assets/images/prof2.jpeg";
-
-const skills = [
-  { name: "Systems Architecture", level: 92 },
-  { name: "Virtualization", level: 88 },
-  { name: "Infrastructure", level: 85 },
-  { name: "Low-Level Engineering", level: 80 },
-  { name: "Problem Solving", level: 95 },
-  { name: "Philosophy", level: 70 },
-];
 ---
 
 <Layout title={`About | ${SITE.title}`}>
   <Header />
-  <main id="main-content" class="hud-main">
+  <main id="main-content">
+    <article class="about">
 
-    <!-- Scanline overlay -->
-    <div class="hud-scanlines" aria-hidden="true"></div>
-
-    <!-- ========== TOP: Identity Ring + Briefing ========== -->
-    <section class="hud-section hud-hero fade-in">
-
-      <!-- Arc ring around avatar -->
-      <div class="hud-ring-wrap">
-        <svg class="hud-ring" viewBox="0 0 200 200" aria-hidden="true">
-          <!-- Outer rotating ring -->
-          <circle cx="100" cy="100" r="96" class="ring ring--outer" />
-          <!-- Middle dashed ring -->
-          <circle cx="100" cy="100" r="88" class="ring ring--mid" />
-          <!-- Inner arc meter -->
-          <circle cx="100" cy="100" r="80" class="ring ring--inner" />
-          <!-- Tick marks -->
-          {Array.from({ length: 36 }).map((_, i) => {
-            const angle = (i * 10 * Math.PI) / 180;
-            const x1 = 100 + 75 * Math.cos(angle);
-            const y1 = 100 + 75 * Math.sin(angle);
-            const x2 = 100 + 72 * Math.cos(angle);
-            const y2 = 100 + 72 * Math.sin(angle);
-            return <line x1={x1} y1={y1} x2={x2} y2={y2} class="ring-tick" />;
-          })}
-          <!-- Corner brackets -->
-          <path d="M 30 10 L 10 10 L 10 30" class="ring-bracket" />
-          <path d="M 170 10 L 190 10 L 190 30" class="ring-bracket" />
-          <path d="M 30 190 L 10 190 L 10 170" class="ring-bracket" />
-          <path d="M 170 190 L 190 190 L 190 170" class="ring-bracket" />
-        </svg>
-        <div class="hud-avatar-wrap">
-          <Image
-            src={prof2}
-            alt="Profile Photo"
-            width={120}
-            height={120}
-            class="hud-avatar"
-          />
-        </div>
-        <!-- Status readout below ring -->
-        <div class="hud-status">
-          <span class="hud-status__dot"></span>
-          <span class="label">ONLINE</span>
-        </div>
+      <!-- Avatar — floats right so body text wraps around it -->
+      <div class="about-avatar">
+        <Image
+          src={prof2}
+          alt="Mounir Samite"
+          width={150}
+          height={150}
+          class="about-avatar-img"
+        />
+        <div class="scanlines" aria-hidden="true"></div>
       </div>
 
-      <!-- Tactical briefing -->
-      <div class="hud-briefing">
-        <div class="hud-tag label">// SUBJECT PROFILE</div>
-        <h1 class="hud-name">Mounir Samite</h1>
-        <div class="hud-subtitle label">Computer Science &mdash; Universit&agrave; di Bologna, Cesena</div>
-
-        <div class="hud-divider" aria-hidden="true">
-          <span class="hud-divider__line"></span>
-          <span class="hud-divider__diamond"></span>
-          <span class="hud-divider__line"></span>
-        </div>
-
-        <div class="hud-bio">
-          <p>I'm not a "ui guy" — I don't care how a button looks. I care about what happens in the milliseconds after you click it.</p>
-          <p>My head is usually buried in virtualization, systems architecture, and infrastructures — the invisible parts of tech that keep the world running.</p>
-        </div>
+      <!-- Header -->
+      <h1 class="about-name">Mounir Samite</h1>
+      <p class="about-tagline">ciao, I'm glad you're here</p>
+      <div class="about-chips">
+        <span class="chip">// Italy</span>
+        <span class="chip">// Agents</span>
+        <span class="chip">// Software architecture</span>
+        <span class="chip">// gym, sports and martial arts</span>
       </div>
-    </section>
 
-    <!-- ========== MID: Skill Gauges ========== -->
-    <section class="hud-section fade-in">
-      <div class="hud-tag label">// CAPABILITY ASSESSMENT</div>
-      <div class="hud-gauges">
-        {skills.map(({ name, level }) => (
-          <div class="gauge" data-level={level}>
-            <div class="gauge__header">
-              <span class="gauge__name label">{name}</span>
-              <span class="gauge__pct">{level}%</span>
-            </div>
-            <div class="gauge__track">
-              <div class="gauge__fill" style={`--level: ${level}%`}></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
+      <!-- Body text with terminal labels -->
+      <div class="tl fade-in">&gt; init: who_am_i</div>
+      <p class="body">I'm a 23 yo computer science engineering student from Italy, finishing my Master's at the University of Bologna. I study distributed systems, complex architectures, and how machines learn, all because I'm convinced that intelligent agents are going to change how we interact with software.</p>
 
-    <!-- ========== BOTTOM: Values + Contact ========== -->
-    <div class="hud-bottom-grid">
+      <div class="tl fade-in">&gt; loading: projects[]</div>
+      <p class="body">I like building things. Right now I'm working on a startup, juggling way too many course projects at once, and somehow making it work. People who know me say I always have too many things going on, that's because I believe in limit testing, which consist in doing things that seem impossible, to figure out what I'm capable of.</p>
+      <p class="body">I care about making software that actually helps people live better, not just software that looks good on a pitch deck. I'm ambitious, but I'd rather be honest and build slow than fake it and move fast.</p>
 
-      <!-- Values panel -->
-      <section class="hud-panel fade-in">
-        <div class="hud-panel__corner hud-panel__corner--tl" aria-hidden="true"></div>
-        <div class="hud-panel__corner hud-panel__corner--tr" aria-hidden="true"></div>
-        <div class="hud-panel__corner hud-panel__corner--bl" aria-hidden="true"></div>
-        <div class="hud-panel__corner hud-panel__corner--br" aria-hidden="true"></div>
-        <div class="hud-tag label">// CORE DIRECTIVES</div>
-        <ul class="hud-values">
-          <li><span class="hud-bullet" aria-hidden="true"></span>Break things. Rebuild them faster.</li>
-          <li><span class="hud-bullet" aria-hidden="true"></span>Clean architecture. Direct conversations.</li>
-          <li><span class="hud-bullet" aria-hidden="true"></span>Philosophy for clarity. Innovation for momentum.</li>
-          <li><span class="hud-bullet" aria-hidden="true"></span><em>Mente sana in corpore sano.</em></li>
-        </ul>
-      </section>
+      <div class="tl fade-in">&gt; status: offline_sometimes</div>
+      <p class="body">When I'm not at my desk I'm at the gym, playing sports with friends, or trying (and sometimes failing) to take a full Sunday off. I question everything I do, whether I'm spending my time right, whether the work is good enough. It's annoying, but it's also why I keep getting better.</p>
 
-      <!-- Contact panel -->
-      <section class="hud-panel fade-in">
-        <div class="hud-panel__corner hud-panel__corner--tl" aria-hidden="true"></div>
-        <div class="hud-panel__corner hud-panel__corner--tr" aria-hidden="true"></div>
-        <div class="hud-panel__corner hud-panel__corner--bl" aria-hidden="true"></div>
-        <div class="hud-panel__corner hud-panel__corner--br" aria-hidden="true"></div>
-        <div class="hud-tag label">// COMM CHANNELS</div>
-        <div class="hud-links">
-          <a href="https://www.linkedin.com/in/mounir-samite-346b7323a/" target="_blank" rel="noopener noreferrer" class="hud-link">
-            <span class="hud-link__icon" aria-hidden="true">&#x25C8;</span>
-            <span class="label">LinkedIn</span>
-            <span class="hud-link__arrow">&rarr;</span>
-          </a>
-          <a href="mailto:mounir.samite@proton.me" class="hud-link">
-            <span class="hud-link__icon" aria-hidden="true">&#x25C8;</span>
-            <span class="label">E-mail</span>
-            <span class="hud-link__arrow">&rarr;</span>
-          </a>
-          <a href="https://github.com/muni106" target="_blank" rel="noopener noreferrer" class="hud-link">
-            <span class="hud-link__icon" aria-hidden="true">&#x25C8;</span>
-            <span class="label">GitHub</span>
-            <span class="hud-link__arrow">&rarr;</span>
-          </a>
-        </div>
-      </section>
-    </div>
+      <div class="tl fade-in">&gt; core_belief:</div>
+      <p class="body">I believe the best technology removes the boring stuff from people's lives and gives them space for what actually requires a human: creativity, judgment, putting things together in ways no machine would. That's what I want to build.</p>
 
+      <!-- Closing line with blinking cursor -->
+      <p class="closing fade-in">Still here? Good taste. Stick around<span class="cursor" aria-hidden="true">|</span></p>
+
+    </article>
   </main>
   <Footer />
 </Layout>
 
 <style>
-  /* ===== Foundations ===== */
-  .hud-main {
-    position: relative;
-    max-width: 48rem;
+  /* ===== Layout ===== */
+  .about {
+    max-width: 650px;
     margin: 0 auto;
     padding: 3rem 1rem 6rem;
-    font-family: 'JetBrains Mono Variable', monospace;
-    font-size: 13px;
-    line-height: 1.6;
-    overflow: hidden;
   }
 
-  /* CRT scanlines */
-  .hud-scanlines {
-    position: fixed;
+  /* ===== Avatar float ===== */
+  .about-avatar {
+    float: right;
+    width: 150px;
+    height: 150px;
+    shape-outside: circle(50%);
+    shape-margin: 1rem;
+    margin: 0.25rem 0 1rem 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--accent);
+    position: relative;
+    transition: box-shadow 0.3s ease;
+  }
+  .about-avatar:hover {
+    box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+  .about-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: none !important;
+  }
+
+  /* Scanline overlay — visible on hover */
+  .scanlines {
+    position: absolute;
     inset: 0;
-    pointer-events: none;
-    z-index: 50;
     background: repeating-linear-gradient(
+      0deg,
       transparent 0px,
       transparent 2px,
-      rgba(0,0,0,0.03) 2px,
-      rgba(0,0,0,0.03) 4px
+      rgba(0, 0, 0, 0.12) 2px,
+      rgba(0, 0, 0, 0.12) 4px
     );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 50%;
+  }
+  .about-avatar:hover .scanlines {
+    opacity: 1;
   }
 
-  /* Sections */
-  .hud-section {
-    margin-bottom: 3rem;
+  /* ===== Header ===== */
+  .about-name {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--headings);
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
   }
 
-  .hud-tag {
+  .about-tagline {
     color: var(--accent);
-    margin-bottom: 1rem;
-    opacity: 0.7;
+    font-size: 0.95rem;
+    font-style: italic;
+    margin: 0 0 1.25rem;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   }
 
-  /* Fade-in on scroll */
+  /* Chips */
+  .about-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+  }
+  .chip {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: var(--muted);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.65rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  /* ===== Terminal labels ===== */
+  .tl {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    opacity: 0.7;
+    margin: 2rem 0 0.75rem;
+  }
+  .about-chips + .tl {
+    margin-top: 0.5rem;
+  }
+
+  /* ===== Body text ===== */
+  .body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--foreground);
+    margin: 0 0 1rem;
+  }
+
+  /* ===== Closing line ===== */
+  .closing {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--accent);
+    margin: 2.5rem 0 0;
+    line-height: 1.6;
+    clear: both;
+  }
+
+  /* Blinking cursor */
+  .cursor {
+    display: inline-block;
+    margin-left: 2px;
+    font-style: normal;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ===== Fade-in on scroll ===== */
   .fade-in {
     opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* ===== Hero: ring + briefing ===== */
-  .hud-hero {
-    display: flex;
-    align-items: flex-start;
-    gap: 2.5rem;
-  }
-
-  /* Ring assembly */
-  .hud-ring-wrap {
-    position: relative;
-    flex-shrink: 0;
-    width: 160px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .hud-ring {
-    width: 160px;
-    height: 160px;
-  }
-  .ring {
-    fill: none;
-    stroke-width: 1;
-  }
-  .ring--outer {
-    stroke: var(--accent);
-    opacity: 0.2;
-    stroke-dasharray: 4 8;
-    animation: spin-slow 30s linear infinite;
-    transform-origin: center;
-  }
-  .ring--mid {
-    stroke: var(--accent);
-    opacity: 0.35;
-    stroke-dasharray: 1 6;
-    animation: spin-slow 20s linear infinite reverse;
-    transform-origin: center;
-  }
-  .ring--inner {
-    stroke: var(--accent);
-    opacity: 0.6;
-    stroke-dasharray: 180 503;
-    stroke-dashoffset: -60;
-    stroke-linecap: round;
-    animation: arc-pulse 4s ease-in-out infinite;
-    transform-origin: center;
-  }
-  .ring-tick {
-    stroke: var(--accent);
-    stroke-width: 0.8;
-    opacity: 0.25;
-  }
-  .ring-bracket {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 1.5;
-    opacity: 0.4;
-  }
-
-  @keyframes spin-slow {
-    to { transform: rotate(360deg); }
-  }
-  @keyframes arc-pulse {
-    0%, 100% { stroke-dashoffset: -60; opacity: 0.6; }
-    50% { stroke-dashoffset: -120; opacity: 0.9; }
-  }
-
-  /* Avatar inside ring */
-  .hud-avatar-wrap {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, calc(-50% - 10px));
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1.5px solid var(--accent);
-    box-shadow:
-      0 0 20px color-mix(in srgb, var(--accent) 15%, transparent),
-      inset 0 0 15px color-mix(in srgb, var(--accent) 8%, transparent);
-  }
-  .hud-avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border: none !important;
-  }
-
-  /* Status readout */
-  .hud-status {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-  }
-  .hud-status__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 6px var(--accent);
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  /* Briefing text */
-  .hud-briefing {
-    flex: 1;
-    min-width: 0;
-  }
-  .hud-name {
-    font-size: 1.8rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: var(--foreground);
-    margin: 0 0 4px;
-  }
-  .hud-subtitle {
-    color: color-mix(in srgb, var(--foreground) 50%, transparent);
-    margin-bottom: 1rem;
-  }
-
-  /* Decorative divider */
-  .hud-divider {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 1rem;
-  }
-  .hud-divider__line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, var(--accent), transparent);
-    opacity: 0.3;
-  }
-  .hud-divider__line:last-child {
-    background: linear-gradient(to left, var(--accent), transparent);
-  }
-  .hud-divider__diamond {
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    transform: rotate(45deg);
-    opacity: 0.5;
-    flex-shrink: 0;
-  }
-
-  /* Bio */
-  .hud-bio {
-    color: color-mix(in srgb, var(--foreground) 75%, transparent);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  /* ===== Skill gauges ===== */
-  .hud-gauges {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px 24px;
-  }
-  .gauge__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 4px;
-  }
-  .gauge__name {
-    color: var(--foreground);
-  }
-  .gauge__pct {
-    font-size: 11px;
-    color: var(--accent);
-    font-variant-numeric: tabular-nums;
-  }
-  .gauge__track {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .gauge__fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 60%, white));
-    border-radius: 2px;
-    box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 40%, transparent);
-    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .gauge.animated .gauge__fill {
-    width: var(--level);
-  }
-
-  /* ===== Bottom grid ===== */
-  .hud-bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-
-  /* Panel with corner brackets */
-  .hud-panel {
-    position: relative;
-    border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
-    padding: 20px;
-    background: color-mix(in srgb, var(--accent) 2%, transparent);
-  }
-  .hud-panel__corner {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-color: var(--accent);
-    border-style: solid;
-    opacity: 0.5;
-  }
-  .hud-panel__corner--tl { top: -1px; left: -1px; border-width: 1.5px 0 0 1.5px; }
-  .hud-panel__corner--tr { top: -1px; right: -1px; border-width: 1.5px 1.5px 0 0; }
-  .hud-panel__corner--bl { bottom: -1px; left: -1px; border-width: 0 0 1.5px 1.5px; }
-  .hud-panel__corner--br { bottom: -1px; right: -1px; border-width: 0 1.5px 1.5px 0; }
-
-  /* Values */
-  .hud-values {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .hud-values li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    color: color-mix(in srgb, var(--foreground) 75%, transparent);
-    font-size: 12px;
-    line-height: 1.5;
-  }
-  .hud-bullet {
-    flex-shrink: 0;
-    width: 4px;
-    height: 4px;
-    margin-top: 6px;
-    background: var(--accent);
-    transform: rotate(45deg);
-    box-shadow: 0 0 4px var(--accent);
-  }
-
-  /* Contact links */
-  .hud-links {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .hud-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 12px;
-    border: 1px solid var(--border);
-    text-decoration: none;
-    color: var(--foreground);
-    transition: all 0.25s;
-  }
-  .hud-link:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 12%, transparent);
-  }
-  .hud-link__icon {
-    color: var(--accent);
-    font-size: 10px;
-    opacity: 0.6;
-  }
-  .hud-link__arrow {
-    margin-left: auto;
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all 0.25s;
-  }
-  .hud-link:hover .hud-link__arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
   /* ===== Responsive ===== */
-  @media (max-width: 640px) {
-    .hud-hero {
-      flex-direction: column;
-      align-items: center;
+  @media (max-width: 500px) {
+    .about-avatar {
+      float: none;
+      display: block;
+      margin: 0 auto 1.5rem;
+      shape-outside: none;
+    }
+    .about-name {
+      font-size: 1.7rem;
       text-align: center;
     }
-    .hud-gauges {
-      grid-template-columns: 1fr;
+    .about-tagline {
+      text-align: center;
     }
-    .hud-bottom-grid {
-      grid-template-columns: 1fr;
-    }
-    .hud-name {
-      font-size: 1.4rem;
-    }
-    .hud-divider__line:last-child {
-      background: linear-gradient(to right, transparent, var(--accent));
+    .about-chips {
+      justify-content: center;
     }
   }
 </style>
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          if (entry.target.querySelector('.hud-gauges')) {
-            entry.target.querySelectorAll('.gauge').forEach((g, i) => {
-              setTimeout(() => g.classList.add('animated'), i * 120);
-            });
+    const observer = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
           }
-          observer.unobserve(entry.target);
         }
-      }
-    }, { threshold: 0.15 });
-
+      },
+      { threshold: 0.15 }
+    );
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   });
 </script>
