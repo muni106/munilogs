@@ -70,6 +70,41 @@ description: A short description.
 
 Set `draft: true` to hide a post. Set `featured: true` to pin it on the homepage.
 
+## Adding a project to the website
+
+Projects are synced automatically from GitHub. To feature a repo on the site, add a `.blog-meta.json` file to its root:
+
+```json
+{
+  "tagline": "Short one-liner for the blog card",
+  "status": "active",
+  "tags": ["agents", "distributed-systems"],
+  "cover": "cover.png",
+  "order": 1
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `tagline` | string | yes | One-line description shown on the project card |
+| `status` | string | yes | `active`, `completed`, or `experiment` — controls grouping and card color |
+| `tags` | string[] | yes | Tech/topic tags shown as inline labels |
+| `cover` | string | no | Filename of a cover image (`.png` or `.gif`) in the repo root. If omitted, the sync script auto-detects `cover.png` or `cover.gif`. |
+| `order` | number | no | Sort priority within the status group. Lower = first. Defaults to 99. |
+
+The sync script (`scripts/fetch-projects.js`) runs weekly via GitHub Actions and can also be triggered manually. It scans all public repos for this file, merges the metadata with GitHub API data (stars, language, last commit), and writes `src/data/projects.json`.
+
+**For repos you don't own** (forks, org repos): fork the repo to your account and add `.blog-meta.json` to your fork.
+
+Run it locally:
+
+```bash
+# Optional: set token to avoid rate limits
+export GITHUB_TOKEN=ghp_...
+
+node scripts/fetch-projects.js
+```
+
 ## Design
 
 Two themes, one palette philosophy:

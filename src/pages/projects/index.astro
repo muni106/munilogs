@@ -1,0 +1,55 @@
+---
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import ProjCard from "@/components/ProjCard.astro";
+import { SITE } from "@/config";
+import projects from "@/data/projects.json";
+
+const statusGroups = [
+  { key: "active", label: "> active" },
+  { key: "completed", label: "> completed" },
+  { key: "experiment", label: "> experiment" },
+] as const;
+
+const grouped = statusGroups
+  .map(g => ({
+    ...g,
+    items: projects.filter(p => p.status === g.key),
+  }))
+  .filter(g => g.items.length > 0);
+---
+
+<Layout title={`Projects | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Projects" pageDesc="some selected projects :)">
+    {grouped.map(group => (
+      <div class="proj-group">
+        <div class="proj-group-label">{group.label}</div>
+        <div class="proj-grid">
+          {group.items.map(project => <ProjCard {project} />)}
+        </div>
+      </div>
+    ))}
+  </Main>
+  <Footer />
+</Layout>
+
+<style>
+  .proj-group {
+    margin-bottom: 2.5rem;
+  }
+  .proj-group-label {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    opacity: 0.7;
+    margin-bottom: 1rem;
+  }
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+</style>

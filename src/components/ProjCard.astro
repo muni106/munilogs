@@ -1,45 +1,167 @@
 ---
 const { project } = Astro.props;
-const { title, description, imageUrl, pubDate, link} = project;
+const { name, url, description, tagline, status, tags, cover, stars, language, lastCommit } = project;
+
+const statusColor: Record<string, string> = {
+  active: "var(--accent)",
+  completed: "color-mix(in srgb, var(--foreground) 50%, transparent)",
+  experiment: "var(--border)",
+};
+
+let timeAgo = "";
+if (lastCommit) {
+  const days = Math.floor((Date.now() - new Date(lastCommit).getTime()) / 86_400_000);
+  if (days === 0) timeAgo = "today";
+  else if (days === 1) timeAgo = "1d ago";
+  else if (days < 30) timeAgo = `${days}d ago`;
+  else if (days < 365) timeAgo = `${Math.floor(days / 30)}mo ago`;
+  else timeAgo = `${Math.floor(days / 365)}yr ago`;
+}
 ---
 
-<article class="group relative overflow-hidden rounded-lg border border-border bg-background transition-all duration-100 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10">
-  <a href={link} class="block no-underline">
-    {imageUrl && (
-      <div class="aspect-video w-full overflow-hidden border-b border-border bg-muted">
-        <img 
-          src={imageUrl} 
-          alt={title}
-          class="h-full w-full object-cover transition-transform duration-100 group-hover:scale-105"
-        />
+<article class="proj-card group">
+  <a href={url} target="_blank" rel="noopener noreferrer" class="proj-link">
+    {cover && (
+      <div class="proj-cover">
+        <img src={cover} alt={name} loading="lazy" class="proj-cover-img" />
       </div>
     )}
-    
-    <div class="p-5 space-y-3">
-      <div class="flex items-start justify-between gap-3">
-        <h3 class="text-s font-bold text-headings not-italic leading-snug group-hover:text-accent transition-colors duration-100">
-          {title}
-        </h3>
-        <svg 
-          class="mt-1 h-5 w-5 flex-shrink-0 text-muted transition-all duration-100 group-hover:translate-x-1 group-hover:text-accent" 
-          fill="none" 
-          stroke="currentColor" 
-          viewBox="0 0 24 24"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-        </svg>
+    <div class="proj-body">
+      <div class="proj-header">
+        <h3 class="proj-name">{name}</h3>
+        <span class="proj-status" style={`color: ${statusColor[status] || statusColor.experiment}; border-color: ${statusColor[status] || statusColor.experiment}`}>
+          {status}
+        </span>
       </div>
-      
-      <p class="text-foreground/80 text-xs leading-relaxed line-clamp-3">
-        {description}
-      </p>
-      
-      <time 
-        datetime={pubDate} 
-        class="block text-sm text-foreground/60 font-light tracking-wide"
-      >
-        {new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-      </time>
+      <p class="proj-tagline">{tagline || description}</p>
+      {tags.length > 0 && (
+        <div class="proj-tags">
+          {tags.map((tag: string) => <span class="proj-tag">{tag}</span>)}
+        </div>
+      )}
+      <div class="proj-meta">
+        {language && <span class="proj-meta-item">{language}</span>}
+        {stars > 0 && <span class="proj-meta-item">&#9733; {stars}</span>}
+        {timeAgo && <span class="proj-meta-item">{timeAgo}</span>}
+      </div>
     </div>
   </a>
 </article>
+
+<style>
+  .proj-card {
+    border: 1px solid var(--border);
+    background: var(--background);
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .proj-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+
+  .proj-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Cover image — small strip */
+  .proj-cover {
+    height: 120px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background: var(--muted);
+  }
+  .proj-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .proj-card:hover .proj-cover-img {
+    transform: scale(1.03);
+  }
+
+  .proj-body {
+    padding: 1rem 1.1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Header: name + status */
+  .proj-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .proj-name {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--headings);
+    margin: 0;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    transition: color 0.2s;
+  }
+  .proj-card:hover .proj-name {
+    color: var(--accent);
+  }
+  .proj-status {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.45rem;
+    border: 1px solid;
+    white-space: nowrap;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+
+  /* Tagline */
+  .proj-tagline {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--foreground) 70%, transparent);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Tags */
+  .proj-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .proj-tag {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    background: var(--muted);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Meta: language, stars, time */
+  .proj-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.15rem;
+  }
+  .proj-meta-item {
+    font-family: 'JetBrains Mono Variable', monospace;
+    font-size: 0.65rem;
+    color: color-mix(in srgb, var(--foreground) 45%, transparent);
+    letter-spacing: 0.02em;
+  }
+</style>
