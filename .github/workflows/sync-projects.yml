@@ -5,6 +5,12 @@ name: Sync Projects from GitHub
 #     - cron: "0 22 * * 0" # Sunday 10 PM UTC
 #   workflow_dispatch:
 
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
 jobs:
   sync:
     runs-on: ubuntu-latest
