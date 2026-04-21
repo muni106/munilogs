@@ -5,7 +5,25 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import ProjCard from "@/components/ProjCard.astro";
 import { SITE } from "@/config";
-import projects from "@/data/projects.json";
+import projectsData from "@/data/projects.json";
+import manualProjectsData from "@/data/projects.manual.json";
+
+type Project = {
+  name: string;
+  url: string;
+  description: string;
+  tagline: string;
+  status: string;
+  tags: string[];
+  cover: string | null;
+  stars: number;
+  language: string | null;
+  lastCommit: string | null;
+  order?: number;
+};
+
+const projects = projectsData as Project[];
+const manualProjects = manualProjectsData as Project[];
 
 const statusGroups = [
   { key: "active", label: "> active" },
@@ -13,10 +31,23 @@ const statusGroups = [
   { key: "experiment", label: "> experiment" },
 ] as const;
 
+const statusRank: Record<string, number> = { active: 0, completed: 1, experiment: 2 };
+const merged: Project[] = [...projects, ...manualProjects]
+  .filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
+  .sort((a, b) => {
+    const sa = statusRank[a.status] ?? 99;
+    const sb = statusRank[b.status] ?? 99;
+    if (sa !== sb) return sa - sb;
+    const oa = a.order ?? 99;
+    const ob = b.order ?? 99;
+    if (oa !== ob) return oa - ob;
+    return new Date(b.lastCommit ?? 0).getTime() - new Date(a.lastCommit ?? 0).getTime();
+  });
+
 const grouped = statusGroups
   .map(g => ({
     ...g,
-    items: projects.filter(p => p.status === g.key),
+    items: merged.filter(p => p.status === g.key),
   }))
   .filter(g => g.items.length > 0);
 ---

@@ -12,7 +12,20 @@ import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 import ProjCard from "@/components/ProjCard.astro";
-import projects from "@/data/projects.json"
+import projectsData from "@/data/projects.json"
+const projects = projectsData as Array<{
+  name: string;
+  url: string;
+  description: string;
+  tagline: string;
+  status: string;
+  tags: string[];
+  cover: string | null;
+  stars: number;
+  language: string | null;
+  lastCommit: string | null;
+  order?: number;
+}>;
 
 const posts = await getCollection("blog");
 
