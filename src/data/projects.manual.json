@@ -46,7 +46,7 @@
     "url": "https://github.com/muni106/ConcurrentFindTheWord",
     "description": "A comprehensive comparison of 6 different concurrency approaches in Java for searching words across thousands of PDF files",
     "tagline": "Comparing 6 concurrency approaches in Java across thousands of PDFs",
-    "status": "active",
+    "status": "completed",
     "tags": ["concurrency", "java"],
     "cover": "/projects/ConcurrentFindTheWord.webp",
     "stars": 0,

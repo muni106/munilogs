@@ -14,7 +14,7 @@ description: Personal reflection about learning.
 ## Table of contents
 
 # Intro
-Hi, this is a blog post, where I want to talk about my experience in learning, considering this is my fifth year of master degree and I'm actually hitting high grades, while having social life, preparing for interviews and building side projects I think it could be helpful.
+Hi, this is a blog post where I want to talk about my experience in learning, considering this is my fifth year of master degree and I'm actually hitting high grades, while having social life, preparing for interviews and building side projects I think it could be helpful.
 
 # Brief context
 From when I was in elementary school teachers always told me to read and repeat to learn content, like if perfectly remembering stuff was the goal, result, a week later I did not remember anything, I felt pointless, so I ended up doing the bare minimum to pass exams.
