@@ -13,7 +13,8 @@ import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 import ProjCard from "@/components/ProjCard.astro";
 import projectsData from "@/data/projects.json"
-const projects = projectsData as Array<{
+import manualProjectsData from "@/data/projects.manual.json"
+type Project = {
   name: string;
   url: string;
   description: string;
@@ -25,14 +26,19 @@ const projects = projectsData as Array<{
   language: string | null;
   lastCommit: string | null;
   order?: number;
-}>;
+  featured?: boolean;
+};
+const projects: Project[] = [
+  ...(projectsData as Project[]),
+  ...(manualProjectsData as Project[]),
+].filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i);
 
 const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
-const featuredProjects = projects.filter(proj => proj.status === "active");
+const featuredProjects = projects.filter(proj => proj.featured === true);
 
 
 ---

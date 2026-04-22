@@ -10,6 +10,7 @@ html[data-theme="light"] {
   --foreground: #1a1a2e;
   --headings: #0a0a1a;
   --accent: #d4a017;
+  --accent-notes: #b83280;
   --muted: #e2e2d8;
   --border: #c8c8be;
 }
@@ -19,6 +20,7 @@ html[data-theme="dark"] {
   --foreground: #d0d0d8;
   --headings: #d0d0d8;
   --accent: #00f0ff;
+  --accent-notes: #ff6ad5;
   --muted: #12121e;
   --border: #1e1e2e;
 }
@@ -94,6 +96,15 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.2;
+}
+
+[data-section="note"] :is(h1, h2, h3),
+.note-accent {
+  color: var(--accent-notes);
+}
+
+[data-section="blog"] :is(h1, h2, h3) {
+  color: var(--accent);
 }
 
 code {

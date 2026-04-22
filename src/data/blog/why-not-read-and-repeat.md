@@ -14,16 +14,21 @@ description: Personal reflection about learning.
 ## Table of contents
 
 # Intro
-Since i was a kid everyone suggested to me, as a study method, to read sections and then repeat them out loud. I always thought that was the only way to learn, and it was necessary to spend a lot of time. 
-<br>
-But what if that advice was actually holding us back?
+Hi, this is a blog post, where I want to talk about my experience in learning, considering this is my fifth year of master degree and I'm actually hitting high grades, while having social life, preparing for interviews and building side projects I think it could be helpful.
 
-# My story
-From when i was in elementary school I thought it was normal to forget things you learn after an examination.
-I crammed, resulting in kinda good performances in examinations, but always not remembering 80/90% of what I learnt.
-I didn't enjoy learning at all, it had no purpose if not getting high grades, then I decided to study the minimum to pass.
-<br>
+# Brief context
+From when I was in elementary school teachers always told me to read and repeat to learn content, like if perfectly remembering stuff was the goal, result, a week later I did not remember anything, I felt pointless, so I ended up doing the bare minimum to pass exams.
 
-When I passed the entrance exam for university something changes, I started thinking about why I decided to study computer science in a university, and I didn't want to forget everything I was learning, then I decided to study how to study.
+Then in the end of highschool, during covid I ended up learning how to learn, I tried different stuff, kinda every thing was very bad, but one book changed all my view about it the name of this book was "Make it stick".
 
-# My failures
+# Make it stick
+Differently from other books about *learning how to learn* this book didn't try to give you a specific study method, but insisted on some key points:
+- learnin comes when you struggle, the exact moment where you put some **effort** in stuff you're learning
+- testing yourself more and more less frequently, **spaced repetition**, helps with remembering stuff in the long term, because obviously if every time you are going to forget something you test yourself, the next time you are going to forget in more time.
+
+# Start of university
+I tried this stuff in highschool, but actually was not really useful there as in uni.
+I have to be honest, I made a lot of mistakes while preparing my exams, for example in the beginning I was trying to make my notes, I was trying to read all the slides or all the book before even trying to test my self with exercises or experiments, I was just feeding my **illusion of knowing things** and everytime spending more time to learn stuff I could have learned in 1/10 time if got exposed to some struggle.
+
+# After sometime
+I realized after sometime that I got better results if I just tried stuff, I got better grades on exams where I spent less time reading and more time doing exercises, but at the same time if I was starting with exercises I could not 

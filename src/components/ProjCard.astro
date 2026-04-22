@@ -5,7 +5,7 @@ const { name, url, description, tagline, status, tags, cover, stars, language, l
 const statusColor: Record<string, string> = {
   active: "var(--accent)",
   completed: "color-mix(in srgb, var(--foreground) 50%, transparent)",
-  experiment: "var(--border)",
+  contribution: "var(--accent-notes)",
 };
 
 let timeAgo = "";
@@ -29,7 +29,7 @@ if (lastCommit) {
     <div class="proj-body">
       <div class="proj-header">
         <h3 class="proj-name">{name}</h3>
-        <span class="proj-status" style={`color: ${statusColor[status] || statusColor.experiment}; border-color: ${statusColor[status] || statusColor.experiment}`}>
+        <span class="proj-status" style={`color: ${statusColor[status] || "var(--border)"}; border-color: ${statusColor[status] || "var(--border)"}`}>
           {status}
         </span>
       </div>

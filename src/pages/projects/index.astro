@@ -20,6 +20,7 @@ type Project = {
   language: string | null;
   lastCommit: string | null;
   order?: number;
+  featured?: boolean;
 };
 
 const projects = projectsData as Project[];
@@ -28,10 +29,10 @@ const manualProjects = manualProjectsData as Project[];
 const statusGroups = [
   { key: "active", label: "> active" },
   { key: "completed", label: "> completed" },
-  { key: "experiment", label: "> experiment" },
+  { key: "contribution", label: "> open-source contributions" },
 ] as const;
 
-const statusRank: Record<string, number> = { active: 0, completed: 1, experiment: 2 };
+const statusRank: Record<string, number> = { active: 0, completed: 1, contribution: 2 };
 const merged: Project[] = [...projects, ...manualProjects]
   .filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
   .sort((a, b) => {

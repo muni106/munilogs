@@ -1,42 +1,45 @@
 [
-  {
-    "name": "my-thing",
-    "url": "https://...",
-    "description": "",
-    "tagline": "short pitch",
-    "status": "active",
-    "tags": ["rust", "cli"],
-    "cover": null,
-    "stars": 0,
-    "language": "Rust",
-    "lastCommit": "2026-04-01",
-    "order": 1
-  },
+{
+  "name": "UFG (Ultimate Fighting Game)",
+  "url": "https://github.com/giovihey/UFG",
+  "description": "A deterministic 2D fighting game engine built with Kotlin and Compose Desktop. It features a JNI-bridged C++ WebRTC layer for low-latency peer-to-peer connectivity, AABB collision physics, and a circular input buffer for frame-precise combo detection. The project follows Hexagonal Architecture principles to decouple the core simulation from networking and rendering infrastructure.",
+  "tagline": "High-performance 2D fighting game with P2P lockstep networking.",
+  "status": "active",
+  "tags": ["kotlin", "webrtc", "game-dev", "p2p", "hexagonal-architecture"],
+  "cover": "/projects/UFG.webp",
+  "stars": 0,
+  "language": "Kotlin",
+  "lastCommit": "2026-04-18",
+  "order": 1,
+  "featured": true
+},
   {
     "name": "PixelArtOnline",
     "url": "https://github.com/muni106/PixelArtOnline",
     "description": "Distributed version of the pixel art game",
     "tagline": "Distributed version of the pixel art game",
-    "status": "active",
+    "status": "completed",
     "tags": ["distributed-systems", "java"],
     "cover": "/projects/pixelArtOnline.webp",
     "stars": 0,
     "language": "Java",
     "lastCommit": "2026-01-16T00:00:00Z",
-    "order": 1
+    "order": 1,
+    "featured": false
   },
   {
     "name": "linux-caching-system",
     "url": "https://github.com/muni106/linux-caching-system",
     "description": "Secure Linux package caching system to reduce bandwidth consumption",
     "tagline": "Secure Linux package caching system to reduce bandwidth consumption",
-    "status": "active",
+    "status": "completed",
     "tags": ["linux", "infrastructure"],
     "cover": "/projects/linux-cacher.webp",
     "stars": 0,
     "language": "Shell",
     "lastCommit": "2024-09-12T00:00:00Z",
-    "order": 2
+    "order": 2,
+    "featured": true
   },
   {
     "name": "ConcurrentFindTheWord",
@@ -49,7 +52,8 @@
     "stars": 0,
     "language": "Java",
     "lastCommit": "2025-11-18T00:00:00Z",
-    "order": 3
+    "order": 3,
+    "featured": false
   },
   {
     "name": "PPS-24-SCALcetto",
@@ -62,7 +66,8 @@
     "stars": 0,
     "language": "Scala",
     "lastCommit": "2025-07-13T00:00:00Z",
-    "order": 1
+    "order": 1,
+    "featured": true
   },
   {
     "name": "fool-compiler",
@@ -75,45 +80,49 @@
     "stars": 0,
     "language": "Java",
     "lastCommit": "2025-05-15T00:00:00Z",
-    "order": 2
+    "order": 2,
+    "featured": false
   },
   {
     "name": "pgwatch",
     "url": "https://github.com/cybertec-postgresql/pgwatch",
     "description": "PostgreSQL monitoring tool",
     "tagline": "PostgreSQL monitoring tool",
-    "status": "completed",
+    "status": "contribution",
     "tags": ["postgresql", "monitoring"],
     "cover": "/projects/pgwatch.webp",
     "stars": 0,
     "language": "Go",
     "lastCommit": "2024-05-18T00:00:00Z",
-    "order": 3
+    "order": 3,
+    "featured": false
   },
   {
     "name": "OOP22-SMOL",
     "url": "https://github.com/ferriforty/OOP22-SMOL",
     "description": "Smash the mole game made from scratch using object orientation",
     "tagline": "Smash the mole game made from scratch using object orientation",
-    "status": "experiment",
+    "status": "completed",
     "tags": ["game", "java", "oop"],
     "cover": "/projects/smol.webp",
     "stars": 0,
     "language": "Java",
     "lastCommit": "2023-04-08T00:00:00Z",
-    "order": 1
+    "order": 1,
+    "featured": false
   },
   {
     "name": "social4musicians",
     "url": "https://github.com/muni106/social4musicians",
     "description": "Social network made for musicians",
     "tagline": "Social network made for musicians",
-    "status": "experiment",
+    "status": "completed",
     "tags": ["web", "social"],
     "cover": "/projects/social4musicians.webp",
     "stars": 0,
     "language": "JavaScript",
     "lastCommit": "2022-10-24T00:00:00Z",
-    "order": 2
+    "order": 2,
+    "featured": false
   }
 ]

@@ -104,13 +104,14 @@ async function main() {
       language: repo.language || null,
       lastCommit: repo.pushed_at || null,
       order: meta.order ?? 99,
+      featured: meta.featured === true,
     });
 
     console.log(`  + ${repo.name} [${meta.status}]`);
   }
 
   // Sort: active → completed → experiment, then order asc, then lastCommit desc
-  const statusRank = { active: 0, completed: 1, experiment: 2 };
+  const statusRank = { active: 0, completed: 1, contribution: 2 };
   projects.sort((a, b) => {
     const sa = statusRank[a.status] ?? 99;
     const sb = statusRank[b.status] ?? 99;

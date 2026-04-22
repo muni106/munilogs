@@ -20,11 +20,13 @@ const { page } = Astro.props;
 
 <Layout title={`Notes | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Notes" pageDesc="Quick thoughts, snippets, and things worth remembering.">
-    <ul>
-      {page.data.map(data => <NoteCard {...data} />)}
-    </ul>
-  </Main>
+  <div data-section="note">
+    <Main pageTitle="Notes" pageDesc="Quick thoughts, snippets, and things worth remembering.">
+      <ul>
+        {page.data.map(data => <NoteCard {...data} />)}
+      </ul>
+    </Main>
+  </div>
 
   <Pagination {page} />
 
