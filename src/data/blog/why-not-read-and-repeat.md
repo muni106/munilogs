@@ -1,14 +1,14 @@
 ---
 author: Mounir Samite
 pubDatetime: 2025-08-11T17:16:08Z
-title: Why read and repeat is a terrible advice
+title: Effort is all you need
 featured: true
 draft: true
 tags:
   - learning
   - personal
   - brain
-description: Personal reflection about learning.
+description: Personal reflection about learning, why read and repeat is a terrible advice. 
 ---
 
 ## Table of contents
