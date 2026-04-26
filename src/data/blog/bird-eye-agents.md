@@ -42,7 +42,6 @@ To make that work, a typical tool-augmented agent has four pieces wired together
 - A **planner** that breaks big goals into smaller steps
 - A **tool interface** that lets it actually call external things
 
-<!-- IMAGE SUGGESTION: An architecture diagram showing LLM core at the center with memory, planner, and tool interface connected around it. Alt text: "Architecture of a tool-augmented agent" -->
 
 ## How agents decide to act
 
