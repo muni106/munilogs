@@ -1,6 +1,8 @@
 ---
 import { getVaultTree, type VaultNode } from "@/utils/getVaultTree";
 import Socials from "@/components/Socials.astro";
+import IconFolder from "@/assets/icons/IconFolder.svg";
+import IconFolderOpen from "@/assets/icons/IconFolderOpen.svg";
 import { SITE } from "@/config";
 
 const tree = await getVaultTree();
@@ -30,12 +32,15 @@ const isOpen = (node: VaultNode) =>
             <li>
               <details open={isOpen(node)} class="sidebar__folder" data-section={node.section}>
                 <summary class="sidebar__chip">
-                  <span class="sidebar__caret" aria-hidden="true">▸</span>
+                  <span class="sidebar__folder-icon" aria-hidden="true">
+                    <IconFolder class="ico ico--closed" />
+                    <IconFolderOpen class="ico ico--open" />
+                  </span>
                   {node.label}
                 </summary>
                 <ul class="sidebar__children">
-                  {node.children.map(child => (
-                    <li>
+                  {node.children.map((child, i) => (
+                    <li style={`--i:${i}`}>
                       <a
                         href={child.href}
                         class:list={["sidebar__leaf", { "is-current": isCurrent(child.href) }]}
@@ -63,9 +68,7 @@ const isOpen = (node: VaultNode) =>
               <a
                 href={node.href}
                 data-section={node.section}
-                class:list={["sidebar__chip sidebar__chip--flat", {
-                  "is-current": isOpen(node),
-                }]}
+                class:list={["sidebar__file", { "is-current": isOpen(node) }]}
               >
                 {node.label}
               </a>
@@ -166,17 +169,72 @@ const isOpen = (node: VaultNode) =>
   .sidebar__chip::-webkit-details-marker {
     display: none;
   }
-  .sidebar__chip--flat.is-current,
   .sidebar__folder[open] > .sidebar__chip {
     box-shadow: inset 3px 0 0 var(--sec-line);
   }
 
-  .sidebar__caret {
-    font-size: 0.6rem;
-    transition: transform 0.15s;
+  /* Folder glyph: filled folder when shut, open folder when expanded. Both
+     glyphs sit in the same grid cell and cross-fade with a lid-flip. */
+  .sidebar__folder-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 0.95rem;
+    height: 0.95rem;
+    color: var(--sec-line);
   }
-  .sidebar__folder[open] .sidebar__caret {
-    transform: rotate(90deg);
+  .sidebar__folder-icon :global(.ico) {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: 100%;
+    transition:
+      opacity 0.18s ease,
+      transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  .sidebar__folder-icon :global(.ico--closed) {
+    fill: currentColor;
+    fill-opacity: 0.22;
+  }
+  .sidebar__folder-icon :global(.ico--open) {
+    opacity: 0;
+    transform: scale(0.72) rotate(-14deg);
+    transform-origin: 20% 80%;
+  }
+  [open] > .sidebar__chip .sidebar__folder-icon :global(.ico--closed) {
+    opacity: 0;
+    transform: scale(0.72) rotate(10deg);
+  }
+  [open] > .sidebar__chip .sidebar__folder-icon :global(.ico--open) {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Body reveal. ::details-content is what makes a <details> animatable at all;
+     browsers without it just snap open, which is fine. */
+  .sidebar__folder::details-content {
+    block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      block-size 0.3s cubic-bezier(0.32, 0.72, 0, 1),
+      opacity 0.2s ease,
+      content-visibility 0.3s allow-discrete;
+  }
+  .sidebar__folder[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+
+  /* Rows slide in one after another as the folder opens. */
+  @keyframes vault-leaf-in {
+    from {
+      opacity: 0;
+      transform: translateX(-4px);
+    }
+  }
+  .sidebar__folder[open] .sidebar__children > li {
+    animation: vault-leaf-in 0.24s both;
+    animation-delay: calc(min(var(--i, 0), 10) * 28ms);
   }
 
   /* Folder body — dashed guide line, as in the reference. */
@@ -216,6 +274,35 @@ const isOpen = (node: VaultNode) =>
   .sidebar__ext {
     font-size: 0.6rem;
     opacity: 0.55;
+  }
+
+  /* Loose files: no tint, thin outline, sitting under the folders. */
+  .sidebar__file {
+    display: flex;
+    align-items: center;
+    margin-inline-start: 0.5rem;
+    padding: 0.22rem 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    border-radius: 0.35rem;
+    color: var(--foreground);
+    text-decoration: none;
+    line-height: 1.35;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .sidebar__file:hover {
+    background: color-mix(in srgb, var(--sec-fill) 60%, transparent);
+    border-color: color-mix(in srgb, var(--sec-line) 50%, transparent);
+  }
+  .sidebar__file.is-current {
+    background: var(--sec-fill);
+    border-color: var(--sec-line);
+    font-weight: 600;
+  }
+  /* Breathing room where the folders end and the loose files begin. */
+  li:has(.sidebar__folder) + li:has(> .sidebar__file) {
+    margin-top: 0.5rem;
   }
 
   .sidebar__all {
@@ -286,8 +373,14 @@ const isOpen = (node: VaultNode) =>
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sidebar {
+    .sidebar,
+    .sidebar__file,
+    .sidebar__folder::details-content,
+    .sidebar__folder-icon :global(.ico) {
       transition: none;
+    }
+    .sidebar__folder[open] .sidebar__children > li {
+      animation: none;
     }
   }
 </style>

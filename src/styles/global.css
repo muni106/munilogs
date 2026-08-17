@@ -18,6 +18,9 @@ html[data-theme="light"] {
   --muted: #dfe6f8;
   --border: #a99bc9;
 
+  /* Lets the sidebar folders animate to `height: auto`. */
+  interpolate-size: allow-keywords;
+
   /* Section hues — fill / border pairs */
   --sec-blog-fill: #fae0c8;
   --sec-blog-line: #c07830;
