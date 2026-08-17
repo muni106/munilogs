@@ -1,0 +1,382 @@
+---
+import type { MarkdownHeading } from "astro";
+import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
+import IconRss from "@/assets/icons/IconRss.svg";
+import IconDots from "@/assets/icons/IconDots.svg";
+
+export interface Props {
+  /** Article headings, used to build the outline menu. */
+  headings?: MarkdownHeading[];
+  /** "Suggest changes" target, when the page maps to a source file. */
+  editUrl?: string;
+}
+
+const { headings = [], editUrl } = Astro.props;
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+/**
+ * The path shown in the bar, Obsidian-style: parent folders then the file.
+ * Hrefs are cumulative so `/posts/foo` links back to `/posts`.
+ */
+function buildCrumbs(pathname: string): Crumb[] {
+  const segments = pathname.replace(/\/+$/, "").split("/").filter(Boolean);
+
+  if (segments.length === 0) return [{ label: "home" }];
+
+  // /posts/2 and /notes/2 are paginated listings, not nested files.
+  if (
+    (segments[0] === "posts" || segments[0] === "notes") &&
+    segments.length === 2 &&
+    !isNaN(Number(segments[1]))
+  ) {
+    return [{ label: `${segments[0]} (page ${segments[1]})` }];
+  }
+
+  // /tags/[tag]/2 collapses the page number onto the tag.
+  if (segments[0] === "tags" && segments.length === 3) {
+    const page = Number(segments[2]);
+    return [
+      { label: "tags", href: "/tags" },
+      {
+        label: decodeURIComponent(segments[1]) + (page === 1 ? "" : ` (page ${segments[2]})`),
+      },
+    ];
+  }
+
+  return segments.map((segment, i) => ({
+    label: decodeURIComponent(segment),
+    href: i < segments.length - 1 ? "/" + segments.slice(0, i + 1).join("/") : undefined,
+  }));
+}
+
+const crumbs = buildCrumbs(Astro.url.pathname);
+const toc = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+<div class="notebar-dock">
+  <div class="notebar">
+    <div class="notebar__nav">
+      <button type="button" class="notebar__btn" data-nav="back" aria-label="Go back">
+        <IconArrowLeft class="notebar__icon" />
+      </button>
+      <button type="button" class="notebar__btn" data-nav="forward" aria-label="Go forward">
+        <IconArrowRight class="notebar__icon" />
+      </button>
+    </div>
+
+    <nav class="notebar__path" aria-label="Breadcrumb">
+      <ol>
+        {
+          crumbs.map((crumb, i) => (
+            <li>
+              {crumb.href ? (
+                <a href={crumb.href}>{crumb.label}</a>
+              ) : (
+                <span aria-current="page">{crumb.label}</span>
+              )}
+              {i < crumbs.length - 1 && <span class="notebar__sep" aria-hidden="true">/</span>}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <div class="notebar__actions">
+      {
+        toc.length > 0 && (
+          <details class="notebar__menu" data-menu>
+            <summary class="notebar__btn" aria-label="Outline">
+              <IconMenuDeep class="notebar__icon" />
+            </summary>
+            <div class="notebar__pop">
+              <p class="notebar__pop-title">Outline</p>
+              {toc.map(h => (
+                <a href={`#${h.slug}`} class:list={["notebar__pop-item", { "is-sub": h.depth === 3 }]}>
+                  {h.text}
+                </a>
+              ))}
+            </div>
+          </details>
+        )
+      }
+
+      <a href="/rss.xml" class="notebar__btn" aria-label="RSS feed">
+        <IconRss class="notebar__icon" />
+      </a>
+
+      <details class="notebar__menu" data-menu>
+        <summary class="notebar__btn" aria-label="More actions">
+          <IconDots class="notebar__icon" />
+        </summary>
+        <div class="notebar__pop">
+          <button type="button" class="notebar__pop-item" data-act="copy">Copy link</button>
+          {
+            editUrl && (
+              <a href={editUrl} target="_blank" rel="noopener noreferrer" class="notebar__pop-item">
+                Suggest changes
+              </a>
+            )
+          }
+          <button type="button" class="notebar__pop-item" data-act="top">Back to top</button>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* The dock keeps the bar pinned while the pane scrolls, and its padded
+     background hides content sliding past the bar's rounded corners. */
+  .notebar-dock {
+    padding: 0.5rem 0.5rem 0;
+    background: var(--background);
+  }
+
+  .notebar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.4rem;
+    background: var(--chrome);
+    color: var(--chrome-ink);
+    border: 2px solid var(--border);
+    border-radius: 0.625rem;
+  }
+
+  .notebar__nav,
+  .notebar__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .notebar__btn {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 0.4rem;
+    color: inherit;
+    list-style: none;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      opacity 0.15s ease;
+  }
+  .notebar__btn::-webkit-details-marker {
+    display: none;
+  }
+  .notebar__btn:hover {
+    background: color-mix(in srgb, var(--surface) 65%, var(--chrome));
+  }
+  .notebar__btn.is-dim {
+    opacity: 0.45;
+    cursor: default;
+  }
+  .notebar__btn.is-dim:hover {
+    background: var(--surface);
+  }
+  .notebar__icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* ===== Path ===== */
+  .notebar__path {
+    min-width: 0;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+  .notebar__path ol {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .notebar__path li {
+    display: inline;
+  }
+  .notebar__path a {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.65;
+  }
+  .notebar__path a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+  .notebar__path [aria-current="page"] {
+    font-weight: 700;
+  }
+  .notebar__sep {
+    margin: 0 0.3rem;
+    opacity: 0.5;
+  }
+
+  /* ===== Menus ===== */
+  .notebar__menu {
+    position: relative;
+  }
+  .notebar__pop {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + 0.35rem);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    min-width: 11rem;
+    max-width: min(20rem, 70vw);
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0.3rem;
+    background: var(--surface);
+    color: var(--foreground);
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.18);
+    font-size: 0.78rem;
+    text-align: start;
+  }
+  .notebar__pop-title {
+    margin: 0.15rem 0.4rem 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+  .notebar__pop-item {
+    display: block;
+    width: 100%;
+    padding: 0.3rem 0.4rem;
+    border: none;
+    border-radius: 0.3rem;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+  .notebar__pop-item:hover {
+    background: color-mix(in srgb, var(--border) 30%, transparent);
+  }
+  .notebar__pop-item.is-sub {
+    padding-inline-start: 1.1rem;
+    opacity: 0.8;
+  }
+
+  /* The pane only scrolls on desktop; pinning on mobile would cover content. */
+  @media (min-width: 900px) {
+    .notebar-dock {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .notebar__btn {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const FORWARD_KEY = "vaultCanForward";
+
+  function initNoteBar() {
+    const bar = document.querySelector<HTMLElement>(".notebar");
+    if (!bar) return;
+
+    const back = bar.querySelector<HTMLButtonElement>('[data-nav="back"]');
+    const forward = bar.querySelector<HTMLButtonElement>('[data-nav="forward"]');
+
+    const setDim = (btn: HTMLButtonElement | null, dim: boolean) => {
+      if (!btn) return;
+      btn.classList.toggle("is-dim", dim);
+      btn.disabled = dim;
+    };
+
+    // There is no API for "can go forward", so track whether the user has
+    // stepped back during this tab's session.
+    setDim(back, history.length <= 1);
+    setDim(forward, sessionStorage.getItem(FORWARD_KEY) !== "1");
+
+    back?.addEventListener("click", () => {
+      sessionStorage.setItem(FORWARD_KEY, "1");
+      history.back();
+    });
+    forward?.addEventListener("click", () => history.forward());
+
+    // A fresh navigation drops whatever forward entries existed.
+    document.addEventListener("click", e => {
+      const link = (e.target as HTMLElement | null)?.closest("a[href]");
+      if (link && !link.closest(".notebar__nav")) {
+        sessionStorage.removeItem(FORWARD_KEY);
+      }
+    });
+
+    const scroller = () => {
+      const pane = document.querySelector<HTMLElement>(".vault-pane");
+      return pane && pane.scrollHeight > pane.clientHeight ? pane : window;
+    };
+
+    bar.querySelectorAll<HTMLButtonElement>("[data-act]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (btn.dataset.act === "top") {
+          scroller().scrollTo({ top: 0, behavior: "smooth" });
+        } else if (btn.dataset.act === "copy") {
+          try {
+            await navigator.clipboard.writeText(location.href);
+            const label = btn.textContent;
+            btn.textContent = "Copied";
+            setTimeout(() => (btn.textContent = label), 1500);
+          } catch {
+            btn.textContent = "Copy failed";
+          }
+        }
+        closeMenus();
+      });
+    });
+
+    const menus = () => bar.querySelectorAll<HTMLDetailsElement>("[data-menu]");
+    const closeMenus = (except?: Element) =>
+      menus().forEach(m => {
+        if (m !== except) m.open = false;
+      });
+
+    menus().forEach(menu =>
+      menu.addEventListener("toggle", () => {
+        if (menu.open) closeMenus(menu);
+      })
+    );
+
+    document.addEventListener("click", e => {
+      if (!(e.target as HTMLElement | null)?.closest("[data-menu]")) closeMenus();
+    });
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") closeMenus();
+    });
+  }
+
+  initNoteBar();
+  document.addEventListener("astro:page-load", initNoteBar);
+</script>

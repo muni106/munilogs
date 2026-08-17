@@ -5,8 +5,6 @@ import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
-import BackButton from "@/components/BackButton.astro";
-import Breadcrumb from "@/components/Breadcrumb.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import { getNotePath } from "@/utils/getNotePath";
 import { slugifyStr } from "@/utils/slugify";
@@ -34,7 +32,7 @@ const {
   hideEditPost,
 } = note.data;
 
-const { Content } = await render(note);
+const { Content, headings } = await render(note);
 
 let ogImageUrl: string | undefined;
 
@@ -52,6 +50,11 @@ const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
 
+const editUrl =
+  SITE.editPost.enabled && !hideEditPost
+    ? `${SITE.editPost.url}${note.filePath}`
+    : undefined;
+
 const words = note.body?.split(/\s+/).filter(Boolean).length ?? 0;
 
 const layoutProps = {
@@ -64,6 +67,8 @@ const layoutProps = {
   ogImage,
   scrollSmooth: true,
   words,
+  headings,
+  editUrl,
 };
 
 /* ========== Prev/Next Notes ========== */
@@ -83,14 +88,9 @@ const nextNote =
 ---
 
 <Layout {...layoutProps}>
-  <Breadcrumb />
-  <BackButton />
   <main
     id="main-content"
-    class:list={[
-      "mx-auto w-full max-w-app px-4 pb-12",
-      { "mt-8": !SITE.showBackButton },
-    ]}
+    class="mx-auto w-full max-w-app px-4 pt-4 pb-12"
     data-pagefind-body
     data-section="note"
   >

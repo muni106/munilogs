@@ -1,9 +1,11 @@
 ---
+import type { MarkdownHeading } from "astro";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
 import TabBar from "@/components/shell/TabBar.astro";
 import Sidebar from "@/components/shell/Sidebar.astro";
+import NoteBar from "@/components/shell/NoteBar.astro";
 import StatusBar from "@/components/shell/StatusBar.astro";
 import { sectionFromPath, type VaultSection } from "@/utils/getVaultTree";
 import "@/styles/global.css";
@@ -24,6 +26,10 @@ export interface Props {
   tabTitle?: string;
   /** Article word count, surfaced in the status bar. */
   words?: number;
+  /** Article headings, surfaced in the note bar outline menu. */
+  headings?: MarkdownHeading[];
+  /** "Suggest changes" target for the note bar menu. */
+  editUrl?: string;
 }
 
 const {
@@ -39,6 +45,8 @@ const {
   section = sectionFromPath(Astro.url.pathname),
   tabTitle,
   words,
+  headings,
+  editUrl,
 } = Astro.props;
 
 // Tabs show the page name alone, without the " | Mounir Samite" suffix.
@@ -165,6 +173,7 @@ const structuredData = {
       <div class="vault__body">
         <Sidebar />
         <div class="vault-pane">
+          <NoteBar {headings} {editUrl} />
           <slot />
         </div>
       </div>
