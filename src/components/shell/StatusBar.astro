@@ -1,0 +1,98 @@
+---
+import { SITE } from "@/config";
+import type { VaultSection } from "@/utils/getVaultTree";
+
+export interface Props {
+  section: VaultSection;
+  /** Word count of the rendered article, when the page is one. */
+  words?: number;
+}
+
+const { section, words } = Astro.props;
+
+const kindLabel: Record<VaultSection, string> = {
+  blog: "post",
+  notes: "note",
+  projects: "project",
+  tags: "tag",
+  home: "vault",
+};
+
+const readingTime = words ? Math.max(1, Math.round(words / 200)) : null;
+---
+
+<footer class="statusbar" data-section={section}>
+  <span class="statusbar__kind">{kindLabel[section]}</span>
+
+  <span class="statusbar__meta">
+    {
+      words ? (
+        <>
+          <span>{words.toLocaleString()} words</span>
+          <span aria-hidden="true">·</span>
+          <span>{readingTime} min read</span>
+        </>
+      ) : (
+        <span class="statusbar__desc">{SITE.desc}</span>
+      )
+    }
+  </span>
+</footer>
+
+<style>
+  .statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-shrink: 0;
+    padding: 0.3rem 0.85rem;
+    background: var(--chrome);
+    color: var(--chrome-ink);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+  }
+
+  .statusbar__kind {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+  }
+  .statusbar__kind::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--sec-line);
+  }
+
+  .statusbar__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+    opacity: 0.85;
+  }
+  .statusbar__desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-section="blog"] {
+    --sec-line: var(--sec-blog-line);
+  }
+  [data-section="notes"] {
+    --sec-line: var(--sec-notes-line);
+  }
+  [data-section="projects"] {
+    --sec-line: var(--sec-projects-line);
+  }
+  [data-section="tags"] {
+    --sec-line: var(--sec-tags-line);
+  }
+  [data-section="home"] {
+    --sec-line: var(--sec-home-line);
+  }
+</style>

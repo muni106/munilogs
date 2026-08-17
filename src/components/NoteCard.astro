@@ -18,7 +18,7 @@ const headerProps = {
 };
 ---
 
-<li class="my-6">
+<li class="entry-card my-4">
   <a
     href={getNotePath(id, filePath)}
     class="note-accent inline-block text-lg font-medium decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
@@ -34,3 +34,22 @@ const headerProps = {
   <Datetime {pubDatetime} {modDatetime} {timezone} />
   <p>{description}</p>
 </li>
+
+<style>
+  /* Note rows echo the sidebar's green "notes" family. */
+  .entry-card {
+    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-inline-start: 5px solid var(--sec-notes-line);
+    border-radius: 0.625rem;
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+  .entry-card:hover {
+    background: color-mix(in srgb, var(--sec-notes-fill) 45%, var(--surface));
+    border-color: var(--sec-notes-line);
+  }
+  .entry-card p {
+    margin: 0.35rem 0 0;
+  }
+</style>

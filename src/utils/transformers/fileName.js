@@ -2,38 +2,32 @@ export const transformerFileName = () => ({
   pre(node) {
     const raw = this.options.meta?.__raw?.split(" ");
 
-    if (!raw) return;
-
     const metaMap = new Map();
 
-    for (const item of raw) {
-      const [key, value] = item.split("=");
-      metaMap.set(key, value.replace(/["'`]/g, ""));
+    if (raw) {
+      for (const item of raw) {
+        const [key, value] = item.split("=");
+        if (value !== undefined) metaMap.set(key, value.replace(/["'`]/g, ""));
+      }
     }
 
     const file = metaMap.get("file");
 
-    if (!file) return;
+    // A `file=` meta wins over the language, but both render the same way: a
+    // label in the block's top-right corner. Anchoring it outside the block
+    // would be clipped, since prose gives `pre` its own overflow.
+    const lang = this.options.lang;
+
+    if (!file && (!lang || lang === "text" || lang === "plaintext")) return;
+
+    // File names keep their case; a bare language reads better capitalised.
+    const label = file || lang.charAt(0).toUpperCase() + lang.slice(1);
 
     node.children.push({
       type: "element",
       tagName: "span",
-      properties: {
-        class: [
-          "px-2 py-1",
-          "absolute left-0 -top-6",
-          "rounded-t-md border border-b-0",
-          "bg-muted/50 text-foreground text-xs font-medium leading-4",
-        ],
-      },
-      children: [
-        {
-          type: "text",
-          value: file,
-        },
-      ],
+      properties: { class: ["code-lang"], "aria-hidden": "true" },
+      children: [{ type: "text", value: label }],
     });
-
-    this.addClassToHast(node, "mt-12 rounded-tl-none");
   },
 });

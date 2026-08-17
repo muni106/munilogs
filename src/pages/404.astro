@@ -1,14 +1,11 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { SITE } from "@/config";
 import jokes from "@/data/404jokes.json"
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
-  <Header />
 
   <main
     id="main-content"
@@ -28,7 +25,6 @@ import jokes from "@/data/404jokes.json"
     </div>
   </main>
 
-  <Footer />
 </Layout>
 
 <script define:vars={{jokes}}>

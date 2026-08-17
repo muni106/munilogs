@@ -1,8 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
 import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Card from "@/components/Card.astro";
@@ -44,7 +42,6 @@ const featuredProjects = projects.filter(proj => proj.featured === true);
 ---
 
 <Layout>
-  <Header />
 
   <main id="main-content" data-layout="index">
     <section id="hero" class="pt-8 pb-6">
@@ -131,7 +128,7 @@ const featuredProjects = projects.filter(proj => proj.featured === true);
     <!-- Navigation Buttons -->
     <button
       id="prevBtn"
-      class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      class="absolute left-0 top-1/2 -translate-y-1/2 bg-surface hover:bg-muted border-2 border-border text-foreground p-3 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed"
       aria-label="Previous"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -141,7 +138,7 @@ const featuredProjects = projects.filter(proj => proj.featured === true);
 
     <button
       id="nextBtn"
-      class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      class="absolute right-0 top-1/2 -translate-y-1/2 bg-surface hover:bg-muted border-2 border-border text-foreground p-3 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed"
       aria-label="Next"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -170,7 +167,6 @@ const featuredProjects = projects.filter(proj => proj.featured === true);
 
 
   </main>
-  <Footer />
 </Layout>
 
 <script>
@@ -218,8 +214,8 @@ const featuredProjects = projects.filter(proj => proj.featured === true);
     dotsContainer.innerHTML = '';
     for (let i = 0; i < total; i++) {
       const dot = document.createElement('button');
-      dot.className = `w-2 h-2 rounded-full transition-all ${
-        i === currentIndex ? 'bg-gray-800 w-8' : 'bg-gray-300'
+      dot.className = `h-2 rounded-full transition-all ${
+        i === currentIndex ? 'w-8 bg-accent' : 'w-2 bg-border'
       }`;
       dot.onclick = () => {
         currentIndex = i;

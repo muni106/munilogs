@@ -1,32 +1,65 @@
 @import "tailwindcss";
 @import "./typography.css";
-@import '@fontsource-variable/jetbrains-mono';
+@import "@fontsource-variable/figtree";
+@import "@fontsource-variable/jetbrains-mono";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root,
 html[data-theme="light"] {
-  --background: #f0f0eb;
-  --foreground: #1a1a2e;
-  --headings: #0a0a1a;
-  --accent: #d4a017;
-  --accent-notes: #b83280;
-  --muted: #e2e2d8;
-  --border: #c8c8be;
+  --chrome: #b9a8d4;
+  --chrome-ink: #4a3a66;
+  --background: #e2f2fa;
+  --surface: #f4f0fa;
+  --foreground: #2b3a4a;
+  --headings: #8a3324;
+  --accent: #3f6ea8;
+  --accent-notes: #a04a90;
+  --muted: #dfe6f8;
+  --border: #a99bc9;
+
+  /* Section hues — fill / border pairs */
+  --sec-blog-fill: #fae0c8;
+  --sec-blog-line: #c07830;
+  --sec-notes-fill: #d4f0dc;
+  --sec-notes-line: #3f9e6a;
+  --sec-projects-fill: #d6e4f7;
+  --sec-projects-line: #3f6ea8;
+  --sec-tags-fill: #f0dcf0;
+  --sec-tags-line: #a04a90;
+  --sec-home-fill: #f8d7d7;
+  --sec-home-line: #c05555;
 }
 
 html[data-theme="dark"] {
-  --background: #0a0a12;
-  --foreground: #d0d0d8;
-  --headings: #d0d0d8;
-  --accent: #00f0ff;
-  --accent-notes: #ff6ad5;
-  --muted: #12121e;
-  --border: #1e1e2e;
+  --chrome: #141020;
+  --chrome-ink: #b0a4c8;
+  --background: #1a1626;
+  --surface: #251f36;
+  --foreground: #d8d2e4;
+  --headings: #e8a08c;
+  --accent: #8fb4e0;
+  --accent-notes: #d99ac9;
+  --muted: #2e2742;
+  --border: #4a3f66;
+
+  --sec-blog-fill: #3a2c1e;
+  --sec-blog-line: #d09a5c;
+  --sec-notes-fill: #1e3328;
+  --sec-notes-line: #6cc496;
+  --sec-projects-fill: #1f2c40;
+  --sec-projects-line: #7ba5d8;
+  --sec-tags-fill: #351f33;
+  --sec-tags-line: #d99ac9;
+  --sec-home-fill: #3a2224;
+  --sec-home-line: #d98888;
 }
 
 @theme inline {
+  --color-chrome: var(--chrome);
+  --color-chrome-ink: var(--chrome-ink);
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-muted: var(--muted);
@@ -36,40 +69,49 @@ html[data-theme="dark"] {
 @layer base {
   * {
     @apply border-border outline-accent/75;
-    scrollbar-width: auto;
-    scrollbar-color: var(--color-muted) transparent;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
   }
   html {
-    @apply overflow-y-scroll scroll-smooth;
+    @apply scroll-smooth;
+    background-color: var(--chrome);
   }
   body {
-    @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+    @apply flex min-h-svh flex-col bg-chrome text-foreground selection:bg-accent/30;
   }
 
   body {
-    font-family: 'JetBrains Mono Variable', monospace;
-    font-weight: 500; 
-    font-size: 15px;
-    line-height: 1.7;
+    font-family: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.65;
     font-style: normal;
   }
 
   a,
   button {
-    @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+    @apply outline-offset-2 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-  section,
-  footer {
-    @apply mx-auto max-w-app px-4;
+
+  /* Content inside the vault pane is centred; the shell itself is not. */
+  .vault-pane :is(section, footer) {
+    @apply mx-auto w-full max-w-app px-4;
   }
 }
 
 @utility max-w-app {
   @apply max-w-3xl;
+}
+
+/* The repeated Obsidian surface: thick rounded border on a raised fill. */
+@utility panel {
+  background-color: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 0.625rem;
 }
 
 .active-nav {
@@ -78,8 +120,8 @@ html[data-theme="dark"] {
 
 .label {
   font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -89,13 +131,17 @@ html[data-theme="dark"] {
   scroll-margin-block: 1rem;
 }
 
-
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--headings);
-  font-family: 'JetBrains Mono Variable', monospace;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
+  font-family: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
 [data-section="note"] :is(h1, h2, h3),
@@ -103,15 +149,10 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--accent-notes);
 }
 
-[data-section="blog"] :is(h1, h2, h3) {
-  color: var(--accent);
-}
-
 code {
-  font-family: 'JetBrains Mono Variable', monospace;
-  font-size: 115%;
+  font-family: "JetBrains Mono Variable", monospace;
+  font-size: 0.875em;
   font-variant-ligatures: discretionary-ligatures;
   font-feature-settings: "liga", "calt";
-  font-weight: 350;
+  font-weight: 450;
 }
-

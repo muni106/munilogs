@@ -1,0 +1,162 @@
+---
+import IconMoon from "@/assets/icons/IconMoon.svg";
+import IconSearch from "@/assets/icons/IconSearch.svg";
+import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
+import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
+import { SITE } from "@/config";
+import type { VaultSection } from "@/utils/getVaultTree";
+
+export interface Props {
+  /** Label shown in the active tab. */
+  tabTitle: string;
+  section: VaultSection;
+}
+
+const { tabTitle, section } = Astro.props;
+---
+
+<div class="tabbar" data-section={section}>
+  <!-- Sidebar toggle (drawer on mobile, collapse on desktop) -->
+  <button
+    id="sidebar-btn"
+    class="tabbar__icon-btn"
+    aria-label="Toggle sidebar"
+    aria-expanded="false"
+    aria-controls="vault-sidebar"
+  >
+    <IconMenuDeep class="tabbar__icon" />
+  </button>
+
+  <!-- Window dots, decorative -->
+  <span class="tabbar__dots" aria-hidden="true">
+    <i></i><i></i><i></i>
+  </span>
+
+  <!-- The active tab: always the current page -->
+  <div class="tabbar__tabs">
+    <span class="tabbar__tab" aria-current="page">{tabTitle}</span>
+    <span class="tabbar__plus" aria-hidden="true">+</span>
+  </div>
+
+  <div class="tabbar__actions">
+    <a href="/search" class="tabbar__icon-btn" aria-label="Search" title="Search">
+      <IconSearch class="tabbar__icon" />
+    </a>
+
+    {
+      SITE.lightAndDarkMode && (
+        <button
+          id="theme-btn"
+          class="tabbar__icon-btn"
+          title="Toggles light & dark"
+          aria-label="auto"
+          aria-live="polite"
+        >
+          <IconMoon class="tabbar__icon absolute scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+          <IconSunHigh class="tabbar__icon absolute scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+        </button>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .tabbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    background: var(--chrome);
+    color: var(--chrome-ink);
+    flex-shrink: 0;
+  }
+
+  .tabbar__dots {
+    display: none;
+    gap: 5px;
+    padding-inline: 0.25rem;
+  }
+  .tabbar__dots i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--chrome-ink) 35%, transparent);
+  }
+  @media (min-width: 640px) {
+    .tabbar__dots {
+      display: flex;
+    }
+  }
+
+  .tabbar__tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* The active tab reads as a raised panel lifted out of the chrome. */
+  .tabbar__tab {
+    display: block;
+    max-width: 22rem;
+    /* Flex items default to min-width:auto, which would let a long title push
+       the action buttons off a narrow screen instead of ellipsising. */
+    min-width: 0;
+    flex: 0 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.3rem 0.9rem;
+    background: var(--background);
+    border: 2px solid var(--border);
+    border-radius: 0.5rem 0.5rem 0 0;
+    border-bottom-color: var(--background);
+    margin-bottom: -0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .tabbar__plus {
+    font-size: 1rem;
+    line-height: 1;
+    opacity: 0.5;
+    padding-inline: 0.25rem;
+  }
+
+  .tabbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .tabbar__icon-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 0.4rem;
+    background: transparent;
+    color: inherit;
+    transition: background-color 0.15s;
+  }
+  .tabbar__icon-btn:hover {
+    background: color-mix(in srgb, var(--chrome-ink) 15%, transparent);
+  }
+  .tabbar__icon {
+    width: 17px;
+    height: 17px;
+  }
+
+  /* Sidebar toggle is a drawer control on mobile only. */
+  @media (min-width: 900px) {
+    #sidebar-btn {
+      display: none;
+    }
+  }
+</style>

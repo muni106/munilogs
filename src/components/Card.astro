@@ -18,7 +18,7 @@ const headerProps = {
 };
 ---
 
-<li class="my-6">
+<li class="entry-card my-4">
   <a
     href={getPath(id, filePath)}
     class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
@@ -34,3 +34,22 @@ const headerProps = {
   <Datetime {pubDatetime} {modDatetime} {timezone} />
   <p>{description}</p>
 </li>
+
+<style>
+  /* Post rows echo the sidebar's orange "posts" family. */
+  .entry-card {
+    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-inline-start: 5px solid var(--sec-blog-line);
+    border-radius: 0.625rem;
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+  .entry-card:hover {
+    background: color-mix(in srgb, var(--sec-blog-fill) 45%, var(--surface));
+    border-color: var(--sec-blog-line);
+  }
+  .entry-card p {
+    margin: 0.35rem 0 0;
+  }
+</style>

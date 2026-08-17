@@ -1,8 +1,6 @@
 ---
 import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
 import ProjCard from "@/components/ProjCard.astro";
 import { SITE } from "@/config";
 import projectsData from "@/data/projects.json";
@@ -54,7 +52,6 @@ const grouped = statusGroups
 ---
 
 <Layout title={`Projects | ${SITE.title}`}>
-  <Header />
   <Main pageTitle="Projects" pageDesc="some selected projects :)">
     {grouped.map(group => (
       <div class="proj-group">
@@ -65,7 +62,6 @@ const grouped = statusGroups
       </div>
     ))}
   </Main>
-  <Footer />
 </Layout>
 
 <style>
@@ -73,7 +69,6 @@ const grouped = statusGroups
     margin-bottom: 2.5rem;
   }
   .proj-group-label {
-    font-family: 'JetBrains Mono Variable', monospace;
     font-size: 0.8rem;
     color: var(--accent);
     opacity: 0.7;

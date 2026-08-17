@@ -1,13 +1,12 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
 import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditProjPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
@@ -56,6 +55,8 @@ const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
 
+const words = post.body?.split(/\s+/).filter(Boolean).length ?? 0;
+
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
@@ -65,6 +66,7 @@ const layoutProps = {
   canonicalURL,
   ogImage,
   scrollSmooth: true,
+  words,
 };
 
 /* ========== Prev/Next Posts ========== */
@@ -83,7 +85,7 @@ const nextPost =
 ---
 
 <Layout {...layoutProps}>
-  <Header />
+  <Breadcrumb />
   <BackButton />
   <main
     id="main-content"
@@ -106,7 +108,7 @@ const nextPost =
     </div>
     <article
       id="article"
-      class="app-prose mx-auto mt-8 max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
+      class="app-prose mx-auto mt-8 max-w-app"
     >
       <Content />
     </article>
@@ -157,7 +159,6 @@ const nextPost =
       }
     </div>
   </main>
-  <Footer />
 </Layout>
 
 <script is:inline data-astro-rerun>

@@ -20,7 +20,7 @@ const { tag, tagName, size = "sm" } = Astro.props;
     href={`/tags/${tag}/`}
     transition:name={tag}
     class:list={[
-      "label relative pe-2 no-underline group-hover:-top-0.5 group-hover:text-accent focus-visible:p-1 focus-visible:no-underline",
+      "tag-pill label relative no-underline focus-visible:no-underline",
       { "text-xs": size === "sm" },
       { "text-sm": size === "lg" },
     ]}
@@ -35,3 +35,20 @@ const { tag, tagName, size = "sm" } = Astro.props;
     &nbsp; &nbsp;<span>{tagName}</span>
   </a>
 </li>
+
+<style>
+  /* Tags read as the purple chip family from the sidebar. */
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.6rem 0.15rem 0.4rem;
+    background: var(--sec-tags-fill);
+    border: 2px solid var(--sec-tags-line);
+    border-radius: 999px;
+    color: var(--foreground);
+    transition: filter 0.15s;
+  }
+  .tag-pill:hover {
+    filter: brightness(0.96);
+  }
+</style>

@@ -40,7 +40,7 @@
     }
 
     img {
-      @apply mx-auto border border-border;
+      @apply mx-auto rounded-lg border-2 border-border;
     }
 
     figcaption {
@@ -48,9 +48,15 @@
     }
 
     table {
+      @apply overflow-hidden rounded-lg border-2 border-border;
+
       th,
       td {
         @apply border border-border p-2;
+      }
+
+      th {
+        @apply bg-muted/60;
       }
 
       th {
@@ -63,15 +69,15 @@
     }
 
     code {
-      @apply rounded bg-muted/75 p-1 break-words text-foreground before:content-none after:content-none;
+      @apply rounded-md border border-border/60 bg-muted px-1 py-0.5 break-words text-foreground before:content-none after:content-none;
     }
 
     .astro-code code {
-      @apply bg-inherit p-0;
+      @apply border-0 bg-inherit p-0;
     }
 
     blockquote {
-      @apply border-s-accent/80 break-words opacity-80;
+      @apply rounded-lg border-s-4 border-s-accent bg-muted/50 py-1 pe-4 break-words not-italic;
     }
 
     details {
@@ -88,12 +94,43 @@
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */
+  /* Code reads as a tinted panel, matching the sidebar and card surfaces. */
   .astro-code {
-    @apply border bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
+    @apply relative rounded-lg border-2 border-border bg-muted text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
+  }
+
+  /* Corner language tag, e.g. the reference's "Shell". The copy button the
+     layouts inject occupies the same corner, so the two swap on hover. */
+  /* Wins over the `[&_span]:text-(--shiki-*)` rules above, which would
+     otherwise paint the label with the theme's default token colour. */
+  .astro-code span.code-lang {
+    @apply absolute end-3 top-2 text-[0.7rem] font-semibold tracking-wide text-foreground opacity-55 transition-opacity;
+  }
+  .astro-code .copy-code {
+    @apply rounded-md border border-border opacity-0 transition-opacity;
+  }
+  .astro-code:hover .code-lang,
+  .astro-code:focus-within .code-lang {
+    @apply opacity-0;
+  }
+  .astro-code:hover .copy-code,
+  .astro-code:focus-within .copy-code,
+  .astro-code .copy-code:focus-visible {
+    @apply opacity-100;
+  }
+
+  /* Touch devices never hover, so the copy button has to stay put. */
+  @media (hover: none) {
+    .astro-code .copy-code {
+      @apply opacity-100;
+    }
+    .astro-code .code-lang {
+      @apply opacity-0;
+    }
   }
 
   html[data-theme="dark"] .astro-code {
-    @apply bg-(--shiki-dark-bg) text-(--shiki-dark) [&_span]:text-(--shiki-dark);
+    @apply bg-muted text-(--shiki-dark) [&_span]:text-(--shiki-dark);
   }
 
   /* Styles for Shiki transformers */

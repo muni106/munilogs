@@ -1,6 +1,4 @@
 ---
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
 import Layout from "@/layouts/Layout.astro";
 import { SITE } from "@/config";
 import { Image } from "astro:assets";
@@ -8,7 +6,6 @@ import prof2 from "@/assets/images/prof2.jpeg";
 ---
 
 <Layout title={`About | ${SITE.title}`}>
-  <Header />
   <main id="main-content">
     <article class="about">
 
@@ -53,7 +50,6 @@ import prof2 from "@/assets/images/prof2.jpeg";
 
     </article>
   </main>
-  <Footer />
 </Layout>
 
 <style>
@@ -111,7 +107,6 @@ import prof2 from "@/assets/images/prof2.jpeg";
 
   /* ===== Header ===== */
   .about-name {
-    font-family: 'JetBrains Mono Variable', monospace;
     font-size: 2.2rem;
     font-weight: 700;
     color: var(--headings);
@@ -136,7 +131,6 @@ import prof2 from "@/assets/images/prof2.jpeg";
     margin-bottom: 1.75rem;
   }
   .chip {
-    font-family: 'JetBrains Mono Variable', monospace;
     font-size: 0.72rem;
     color: var(--accent);
     background: var(--muted);
@@ -148,7 +142,6 @@ import prof2 from "@/assets/images/prof2.jpeg";
 
   /* ===== Terminal labels ===== */
   .tl {
-    font-family: 'JetBrains Mono Variable', monospace;
     font-size: 0.8rem;
     color: var(--accent);
     opacity: 0.7;

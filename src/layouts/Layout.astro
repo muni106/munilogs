@@ -2,6 +2,10 @@
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
+import TabBar from "@/components/shell/TabBar.astro";
+import Sidebar from "@/components/shell/Sidebar.astro";
+import StatusBar from "@/components/shell/StatusBar.astro";
+import { sectionFromPath, type VaultSection } from "@/utils/getVaultTree";
 import "@/styles/global.css";
 
 export interface Props {
@@ -14,6 +18,12 @@ export interface Props {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  /** Overrides the section inferred from the URL. */
+  section?: VaultSection;
+  /** Label for the active tab; defaults to the page title. */
+  tabTitle?: string;
+  /** Article word count, surfaced in the status bar. */
+  words?: number;
 }
 
 const {
@@ -26,7 +36,13 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  section = sectionFromPath(Astro.url.pathname),
+  tabTitle,
+  words,
 } = Astro.props;
+
+// Tabs show the page name alone, without the " | Mounir Samite" suffix.
+const activeTabTitle = tabTitle ?? title.split(" | ")[0];
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
@@ -139,7 +155,22 @@ const structuredData = {
     <script is:inline src="/toggle-theme.js"></script>
   </head>
   <body>
-    <slot />
+    <a id="skip-to-content" href="#main-content" class="skip-link">
+      Skip to content
+    </a>
+
+    <div class="vault">
+      <TabBar tabTitle={activeTabTitle} {section} />
+
+      <div class="vault__body">
+        <Sidebar />
+        <div class="vault-pane">
+          <slot />
+        </div>
+      </div>
+
+      <StatusBar {section} {words} />
+    </div>
   </body>
 </html>
 
@@ -148,6 +179,70 @@ const structuredData = {
   body {
     margin: 0;
     width: 100%;
-    height: 100%;
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: 4rem;
+    top: -100%;
+    z-index: 60;
+    padding: 0.5rem 0.75rem;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    color: var(--accent);
+    transition: top 0.2s;
+  }
+  .skip-link:focus {
+    top: 0.5rem;
+  }
+
+  /* The window frame. */
+  .vault {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100svh;
+    background: var(--chrome);
+  }
+
+  .vault__body {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+    min-height: 0;
+    padding: 0 0.5rem 0.5rem;
+  }
+
+  /* The document pane — the pale canvas the reading happens on. */
+  .vault-pane {
+    flex: 1;
+    min-width: 0;
+    background: var(--background);
+    border: 2px solid var(--border);
+    border-radius: 0.625rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /*
+   * Desktop pins the frame to the viewport and scrolls inside the pane, so the
+   * tab bar and status bar stay put like a real app window. Mobile keeps native
+   * page scrolling — an internally scrolling pane breaks address-bar collapse
+   * and momentum scrolling on touch.
+   */
+  @media (min-width: 900px) {
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+    .vault {
+      height: 100svh;
+      min-height: 0;
+    }
+    .vault-pane {
+      overflow-y: auto;
+    }
   }
 </style>
