@@ -1,6 +1,6 @@
 ---
 author: Mounir Samite
-pubDatetime: 2026-18-08T17:16:08Z
+pubDatetime: 2026-08-17T17:16:08Z
 title: My first blog post ever
 featured: true
 draft: false
