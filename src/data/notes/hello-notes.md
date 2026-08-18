@@ -8,4 +8,4 @@ tags: [meta]
 description: The first note — a quick test of the notes section.
 ---
 
-This is the notes section. Quick thoughts, snippets, and things worth remembering.
+This is the notes section. Quick things worth remembering.
