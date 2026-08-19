@@ -11,7 +11,7 @@
 
 **A personal chronicle of exploration, ideas, and continuous growth.**
 
-[Live site](https://mounirsamite.com) &#183; [Posts](https://mounirsamite.com/posts) &#183; [Notes](https://mounirsamite.com/notes) &#183; [Projects](https://mounirsamite.com/projects)
+[Live site](https://mounirsamite.pages.dev) &#183; [Posts](https://mounirsamite.pages.dev/posts) &#183; [Notes](https://mounirsamite.pages.dev/notes) &#183; [Projects](https://mounirsamite.pages.dev/projects)
 
 </div>
 
@@ -86,10 +86,6 @@ src/
   constants.ts      # social + share links
   content.config.ts # collection schemas
 ```
-
-## License
-
-Code — MIT. Content (posts, notes, images) — [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 Built on top of the [AstroPaper](https://github.com/satnaing/astro-paper) theme by Sat Naing.
 
