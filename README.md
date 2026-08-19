@@ -11,72 +11,57 @@
 
 **A personal chronicle of exploration, ideas, and continuous growth.**
 
-[![Astro](https://img.shields.io/badge/Astro-5-BC52EE?logo=astro&logoColor=white)](https://astro.build)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://typescriptlang.org)
-[![Tailwind](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![License: Code](https://img.shields.io/badge/Code-MIT-green)](#license)
-[![License: Content](https://img.shields.io/badge/Content-CC_BY--NC--SA_4.0-lightgrey)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-
-[Live Site](https://mounirsamite.com) &#183; [Posts](https://mounirsamite.com/posts) &#183; [Projects](https://mounirsamite.com/projects) &#183; [Notes](https://mounirsamite.com/notes)
+[Live site](https://mounirsamite.com) &#183; [Posts](https://mounirsamite.com/posts) &#183; [Notes](https://mounirsamite.com/notes) &#183; [Projects](https://mounirsamite.com/projects)
 
 </div>
 
 ---
 
-## What is this
+My personal website and blog, built with Astro 5, Tailwind 4 and TypeScript, with Pagefind for search. Deployed to Cloudflare Pages by GitHub Actions on every push to `main`.
 
-My personal website and blog. A place for writing about systems, infrastructure, philosophy, and whatever else sticks. 
-
-## Getting started
+## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview the production build
-npm run preview
+npm run dev      # dev server on :4321
+npm run build    # astro check + build + pagefind index
+npm run preview  # serve the production build
+npm run lint     # eslint
+npm run format   # prettier
 ```
 
 ## Content
 
-All content lives under `src/data/`:
-
 ```
 src/data/
-  blog/          # Markdown blog posts
-  notes/         # Markdown notes (quick thoughts, snippets)
-  projects.json  # Project showcase entries
+  blog/                  # posts
+  notes/                 # shorter notes
+  projects.json          # synced from GitHub (generated)
+  projects.manual.json   # hand-written project entries
 ```
 
-Each blog post and note uses the same frontmatter schema:
+Posts and notes are Markdown with the same frontmatter:
 
 ```yaml
 ---
 title: Post Title
-author: Mounir Samite
 pubDatetime: 2026-03-31T12:00:00Z
+description: A short description.
+tags: [systems, architecture]
 featured: false
 draft: false
-tags: [systems, architecture]
-description: A short description.
 ---
 ```
 
-Set `draft: true` to hide a post. Set `featured: true` to pin it on the homepage.
+`draft: true` hides it, `featured: true` pins it on the homepage. Optional: `author`, `modDatetime`, `ogImage`, `canonicalURL`, `timezone`.
 
-## Adding a project to the website
+## Projects
 
-Projects are synced automatically from GitHub. To feature a repo on the site, add a `.blog-meta.json` file to its root:
+Projects come from two places. Manual entries live in `src/data/projects.manual.json`. Repos are picked up automatically by `scripts/fetch-projects.js` (run in CI by `.github/workflows/sync-projects.yml`), which scans public repos for a `.blog-meta.json` in their root and writes `src/data/projects.json`:
 
 ```json
 {
-  "tagline": "Short one-liner for the blog card",
+  "tagline": "Short one-liner for the project card",
   "status": "active",
   "tags": ["agents", "distributed-systems"],
   "cover": "cover.png",
@@ -84,62 +69,29 @@ Projects are synced automatically from GitHub. To feature a repo on the site, ad
 }
 ```
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `tagline` | string | yes | One-line description shown on the project card |
-| `status` | string | yes | `active`, `completed`, or `experiment` — controls grouping and card color |
-| `tags` | string[] | yes | Tech/topic tags shown as inline labels |
-| `cover` | string | no | Filename of a cover image (`.png` or `.gif`) in the repo root. If omitted, the sync script auto-detects `cover.png` or `cover.gif`. |
-| `order` | number | no | Sort priority within the status group. Lower = first. Defaults to 99. |
+`tagline`, `status` (`active` | `completed` | `experiment`) and `tags` are required; `cover` (auto-detects `cover.png` / `cover.gif`) and `order` (lower first, default 99) are optional. For repos you don't own, add the file to your fork.
 
-The sync script (`scripts/fetch-projects.js`) runs weekly via GitHub Actions and can also be triggered manually. It scans all public repos for this file, merges the metadata with GitHub API data (stars, language, last commit), and writes `src/data/projects.json`.
+Run it locally with `GITHUB_TOKEN=ghp_... node scripts/fetch-projects.js`.
 
-**For repos you don't own** (forks, org repos): fork the repo to your account and add `.blog-meta.json` to your fork.
-
-Run it locally:
-
-```bash
-# Optional: set token to avoid rate limits
-export GITHUB_TOKEN=ghp_...
-
-node scripts/fetch-projects.js
-```
-
-## Design
-
-Two themes, one palette philosophy:
-
-| Token | Dark | Light |
-|-------|------|-------|
-| `--background` | `#0d0d0d` | `#f5f5f0` |
-| `--foreground` | `#e0e0e0` | `#1a1a1a` |
-| `--accent` | `#c8f04a` | `#4a7a2e` |
-
-Headings are bold, tight-tracked sans-serif. Body text is 15px with generous line-height. Tags and labels use uppercase with wide letter-spacing.
-
-## Project structure
+## Structure
 
 ```
 src/
-  pages/           # File-based routing (posts, notes, projects, tags, about, search)
-  layouts/         # Layout shells (Layout, Main, PostDetails, NoteDetails, ProjDetails)
-  components/      # Reusable UI (Header, Card, NoteCard, Tag, Pagination, etc.)
-  styles/          # global.css (tokens, base), typography.css (prose overrides)
-  utils/           # Sorting, filtering, path resolution, OG generation, slugify
-  config.ts        # Site-wide settings (SITE constant)
-  constants.ts     # Social links, share links
-  content.config.ts # Collection schemas (blog, projects, notes)
+  pages/            # routes: posts, notes, projects, tags, archives, about, search
+  layouts/          # page shells
+  components/       # UI
+  styles/           # global.css (tokens), typography.css
+  utils/            # sorting, filtering, OG images, slugs
+  config.ts         # SITE settings
+  constants.ts      # social + share links
+  content.config.ts # collection schemas
 ```
 
 ## License
 
-**Code** (source, templates, config) — [MIT](./LICENSE)
-
-**Content** (blog posts, notes, images, written material) — [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+Code — MIT. Content (posts, notes, images) — [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 Built on top of the [AstroPaper](https://github.com/satnaing/astro-paper) theme by Sat Naing.
-
----
 
 <div align="center">
   <sub>Made by <a href="https://github.com/muni106">Mounir Samite</a></sub>

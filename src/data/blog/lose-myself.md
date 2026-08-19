@@ -12,6 +12,7 @@ description: I don't know what does the future hold for us
 
 ## Table of contents
 
+## Context
 Hi everyone.
 
 In March 2027 I'll finish my master's degree in computer science engineering and I'm scared of losing the ability to learn how to code.
