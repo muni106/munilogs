@@ -1,7 +1,7 @@
 ---
 author: Mounir Samite
 pubDatetime: 2026-08-19T17:16:08Z
-title: I hope coding is not dead
+title: Programming is not dead
 featured: false
 draft: false
 tags:
