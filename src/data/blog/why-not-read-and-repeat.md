@@ -1,9 +1,9 @@
 ---
 author: Mounir Samite
-pubDatetime: 2026-08-28T16:16:08Z
+pubDatetime: 2026-08-27T16:16:08Z
 title: Effort is all you need
 featured: true
-draft: true
+draft: false
 tags:
   - learning
   - personal
