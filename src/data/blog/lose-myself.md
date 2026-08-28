@@ -1,7 +1,7 @@
 ---
 author: Mounir Samite
 pubDatetime: 2026-08-19T17:16:08Z
-title: I'm scared of unlearning how to code
+title: I hope coding is not dead
 featured: true
 draft: false
 tags:
