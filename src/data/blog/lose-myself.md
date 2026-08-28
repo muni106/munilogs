@@ -2,7 +2,7 @@
 author: Mounir Samite
 pubDatetime: 2026-08-19T17:16:08Z
 title: I hope coding is not dead
-featured: true
+featured: false
 draft: false
 tags:
   - personal

@@ -2,7 +2,7 @@
 author: Mounir Samite
 pubDatetime: 2026-08-17T17:16:08Z
 title: My first blog post ever
-featured: false
+featured: true
 draft: false
 tags:
   - personal
